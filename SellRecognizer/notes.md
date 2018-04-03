@@ -22,3 +22,7 @@ Using Google account `shenlongdemon` with project `SellRecognizer`
 
 ### Search Image
 search engine ID: `004370175914457095242:a4ftrdtwhm4`
+### Google oAuth
+
+https://console.developers.google.com/apis/credentials?project=sellrecognizer-1522772197695&authuser=0
+
