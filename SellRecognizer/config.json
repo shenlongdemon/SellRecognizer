@@ -1,0 +1,9 @@
+{
+    "google":{
+      "imageSearch":{
+        "url":"https://www.googleapis.com/customsearch/v1?q={keyword}&num={pageSize}&start={offset}&imgSize=medium&searchType=image&key={APIKey}&cx={searchEngineKey}",
+        "searchEngineKey":"004370175914457095242:a4ftrdtwhm4"
+      },
+      "APIKey":"AIzaSyCIFpX02yxf_azs1qwmn2feMDYUfQLqZDQ"
+    }
+  }
