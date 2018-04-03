@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
 import ListItems from './screen/ListItems';
+import AddItem from './screen/AddItem';
+import SearchImageItem from './screen/SearchImageItem';
+
 export default class App extends React.Component {
   render() {
     return (
@@ -12,7 +15,17 @@ export default class App extends React.Component {
           component={ListItems}
           title="Your items"
           initial          
-        />       
+        />      
+        <Scene key="additem"
+          component={AddItem}
+          title="Create new"
+                    
+        />   
+        <Scene key="searchimageitem"
+          component={SearchImageItem}
+          title="Select one"
+                    
+        />   
       </Scene>
     </Router>
     );
