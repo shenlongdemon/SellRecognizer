@@ -5,6 +5,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import ListItems from './screen/ListItems';
 import AddItem from './screen/AddItem';
 import SearchImageItem from './screen/SearchImageItem';
+import FillItemInfor from './screen/FillItemInfor';
 
 export default class App extends React.Component {
   render() {
@@ -23,9 +24,14 @@ export default class App extends React.Component {
         />   
         <Scene key="searchimageitem"
           component={SearchImageItem}
-          title="Select one"
-                    
+          title="Select one"                    
         />   
+        <Scene key="filliteminfor"
+          component={FillItemInfor}
+          title="Item"                    
+        />   
+
+
       </Scene>
     </Router>
     );

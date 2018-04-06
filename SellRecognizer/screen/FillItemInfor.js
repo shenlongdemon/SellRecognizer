@@ -1,15 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,Image } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 
-export default class AddItem extends React.Component {
+export default class FillItemInfor extends React.Component {
+    constructor(props) {
+        super(props)
+
+    }
     render() {
         return (
             <View style={styles.container}>
+                <Image
+                    style={{ width: 50, height: 50 }}
+                    source={{ uri: this.props.image.link }}
+                />
                 <Text>Add Item</Text>
-                <Text
-                    onPress={() => Actions.searchimageitem()} // New Code
-                >Select Image</Text>
+                
             </View>
         );
     }

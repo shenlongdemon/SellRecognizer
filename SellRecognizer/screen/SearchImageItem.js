@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 import SearchImage from '../components/SearchImage'
 import GridView from 'react-native-super-grid';
@@ -8,10 +8,18 @@ export default class SearchImageItem extends React.Component {
         super();
         this.state = {
             keyword: "",
-            images: []
+            images: [],
+            selectedImage:{id:""}
         };
     }
-
+    onSelectImage = (image) => {
+        this.setState(
+            (prevState) => ({
+                selectedImage: image
+            })
+           );
+        console.log("selectedImageId " + this.state.selectedImage);
+      }
     getImage(keyword) {
         var self = this;
         SearchImage.getImages("rolex")
@@ -40,15 +48,20 @@ export default class SearchImageItem extends React.Component {
                     itemDimension={130}
                     items={this.state.images}
                     renderItem={item => (
-                        <View>
-
+                        <View style={{backgroundColor: this.state.selectedImage.id == item.id ? 'blue' : 'white'}}>
+                            <TouchableOpacity activeOpacity = { .5 } onPress={() => this.onSelectImage(item) }>
                             <Image
-                                style={{ width: 50, height: 50 }}
-                                source={{ uri: item.link }}
-                            />
+                                    style={{ width: 50, height: 50 }}
+                                    source={{ uri: item.link }}
+                                />
+                            </TouchableOpacity>
+                            
                         </View>
                     )}
                 />
+                <Text
+        onPress={() => Actions.filliteminfor({image:this.state.selectedImage})} // New Code
+        >Next</Text>
             </View>
         );
     }
