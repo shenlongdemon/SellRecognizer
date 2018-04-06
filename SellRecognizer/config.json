@@ -5,5 +5,9 @@
         "searchEngineKey":"004370175914457095242:a4ftrdtwhm4"
       },
       "APIKey":"AIzaSyCIFpX02yxf_azs1qwmn2feMDYUfQLqZDQ"
+    },
+    "service":{
+      "url":"http://localhost:5000"
     }
+    
   }
