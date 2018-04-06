@@ -8,6 +8,10 @@
     },
     "service":{
       "url":"http://localhost:5000"
-    }
+    },
+    "weather":{
+        "url":"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&APPID={APIKey}&units=metric",
+        "APIKey":"6435508fad5982cda8c0a812d7a57860"
+      }
     
   }

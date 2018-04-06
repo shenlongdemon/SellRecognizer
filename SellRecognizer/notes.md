@@ -27,3 +27,6 @@ search engine ID: `004370175914457095242:a4ftrdtwhm4`
 https://console.developers.google.com/apis/credentials?project=sellrecognizer-1522772197695&authuser=0
 https://cse.google.com/cse/setup/basic?cx=004370175914457095242:a4ftrdtwhm4
 
+### Weather
+https://openweathermap.org/
+

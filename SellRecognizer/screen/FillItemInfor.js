@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View,Image, Geolocation } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 
 export default class FillItemInfor extends React.Component {
     constructor(props) {
-        super(props)
-
+        super(props)       
     }
     render() {
         return (
