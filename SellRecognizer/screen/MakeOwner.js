@@ -48,7 +48,7 @@ export default class MakeOwner extends React.Component {
                 console.log("MakeOwner.insertItem res " + JSON.stringify(res));
 
                 let id = res.Data.id;
-                
+                Actions.gencode({item:res.Data});
                 
             });
 

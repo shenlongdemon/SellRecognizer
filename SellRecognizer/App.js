@@ -7,6 +7,7 @@ import AddItem from './screen/AddItem';
 import SearchImageItem from './screen/SearchImageItem';
 import FillItemInfor from './screen/FillItemInfor';
 import MakeOwner from './screen/MakeOwner';
+import GenCode from './screen/GenCode';
 
 export default class App extends React.Component {
   render() {
@@ -34,6 +35,10 @@ export default class App extends React.Component {
           <Scene key="makeowner"
             component={MakeOwner}
             title="Make Owner"
+          />
+          <Scene key="gencode"
+            component={GenCode}
+            title="Gen Owner"
           />
 
         </Scene>
