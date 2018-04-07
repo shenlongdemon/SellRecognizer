@@ -7,7 +7,7 @@ export default class ListItems extends React.Component {
     return (
       <View style={styles.container}>
         <Text
-        onPress={() => Actions.additem()} // New Code
+        onPress={() => Actions.searchimageitem()} // New Code
         >Add new item</Text>
       </View>
     );

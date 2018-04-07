@@ -3,13 +3,15 @@ import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'reac
 import { Actions } from 'react-native-router-flux'; // New code
 import SearchImage from '../components/SearchImage'
 import GridView from 'react-native-super-grid';
+import { Col, Row, Grid } from "react-native-easy-grid";
+
 export default class SearchImageItem extends React.Component {
     constructor() {
         super();
         this.state = {
             keyword: "",
             images: [],
-            selectedImage:{id:""}
+            selectedImage: { id: "" }
         };
     }
     onSelectImage = (image) => {
@@ -17,12 +19,12 @@ export default class SearchImageItem extends React.Component {
             (prevState) => ({
                 selectedImage: image
             })
-           );
-        console.log("selectedImageId " + this.state.selectedImage);
-      }
-    getImage(keyword) {
+        );
+        console.log("selectedImage " + this.state.selectedImage);
+    }
+    getImage() {
         var self = this;
-        SearchImage.getImages("rolex")
+        SearchImage.getImages(this.state.keyword)
             .then(function (res) { // (A)      
                 console.log(JSON.stringify(res));
                 self.setState({ images: res.Data });
@@ -35,33 +37,53 @@ export default class SearchImageItem extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput
-                    style={{ width: 100, height: 40, borderColor: 'gray', borderWidth: 1 }}
-                    onChangeText={(text) => this.setState({ keyword: text })}
-                    value={this.state.keywork}
-                />
-                <Text
-                    onPress={() => this.getImage(this.state.keywork)} // New Code
-                >Get Image</Text>
-
-                <GridView
-                    itemDimension={130}
-                    items={this.state.images}
-                    renderItem={item => (
-                        <View style={{backgroundColor: this.state.selectedImage.id == item.id ? 'blue' : 'white'}}>
-                            <TouchableOpacity activeOpacity = { .5 } onPress={() => this.onSelectImage(item) }>
-                            <Image
-                                    style={{ width: 50, height: 50 }}
-                                    source={{ uri: item.link }}
+                <Grid>
+                    <Row style={{ height: 50 }}>
+                        <Grid>
+                            <Col>
+                                <TextInput
+                                    style={{ flex: 1, borderColor: 'gray', borderWidth: 1 }}
+                                    onChangeText={(text) => this.setState({ keyword: text })}
+                                    value={this.state.keyword}
                                 />
-                            </TouchableOpacity>
-                            
-                        </View>
-                    )}
-                />
-                <Text
-        onPress={() => Actions.filliteminfor({image:this.state.selectedImage})} // New Code
-        >Next</Text>
+                            </Col>
+                            <Col style={{ width: 100 }}>
+                                <Text style={{ flex: 1}}
+                                    onPress={() => this.getImage()} // New Code
+                                >Get Image</Text>
+                            </Col>
+                        </Grid>
+                    </Row>
+                    <Row>
+                        <GridView
+                            itemDimension={50}
+                            items={this.state.images}
+                            renderItem={item => (
+                                <View style={{ backgroundColor: this.state.selectedImage.id == item.id ? 'blue' : 'white' }}>
+                                    <TouchableOpacity activeOpacity={.5} onPress={() => this.onSelectImage(item)}>
+                                        <Image
+                                            style={{ width: 50, height: 50 }}
+                                            source={{ uri: item.link }}
+                                        />
+                                    </TouchableOpacity>
+
+                                </View>
+                            )}
+                        />
+                    </Row>
+                    <Row style={{ height: 50 }}>
+                        <Text
+                            onPress={() => Actions.filliteminfor({ image: this.state.selectedImage, itemName:this.state.keyword })} // New Code
+                        >Next</Text>
+                    </Row>
+                </Grid>
+
+
+
+
+
+
+
             </View>
         );
     }
@@ -70,8 +92,6 @@ export default class SearchImageItem extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#fff'
     },
 });
