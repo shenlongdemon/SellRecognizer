@@ -9,7 +9,7 @@ export default class FillItemInfor extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            categories: [],             
+            categories: [],
             name: "",
             description: ""
 
@@ -17,8 +17,8 @@ export default class FillItemInfor extends React.Component {
     }
     componentDidMount() {
         this.setState({ isMounted: true })
-        this.setState({name:this.props.itemName});
-        this.setState({description:this.props.image.title});
+        this.setState({ name: this.props.itemName });
+        this.setState({ description: this.props.image.title });
         this.loadCategories();
 
     }
@@ -34,7 +34,7 @@ export default class FillItemInfor extends React.Component {
                 console.log("CommonService.getCategories state " + JSON.stringify(this.state));
             });
     }
-    getItem(){
+    getItem() {
         return {
             name: this.state.name,
             description: this.state.description,
@@ -73,28 +73,20 @@ export default class FillItemInfor extends React.Component {
                             <Row >
                                 <Text>Description</Text>
                                 <TextInput editable={true}
-                                    multiline = {true}
-                                    numberOfLines = {4}
+                                    multiline={true}
+                                    numberOfLines={4}
                                     style={{ flex: 1, height: 120, borderColor: 'gray', borderWidth: 1 }}
                                     onChangeText={(text) => this.setState({ description: text })}
                                     value={this.state.description}
                                 />
                             </Row>
-                            <Row >
-
-                            </Row>
-                            <Row >
-
-                            </Row>
 
                         </Grid>
-
-
 
                     </Row>
                     <Row style={{ height: 50 }}>
                         <Text
-                            onPress={() => 
+                            onPress={() =>
                                 Actions.makeowner({ item: this.getItem() })
                             } // New Code
                         >Make ouwer for it</Text>

@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 import QRCode from 'react-native-qrcode';
 import OMCode from '../components/OMCode';
-
 export default class GenCode extends React.Component {
     constructor(props) {
         super(props);
@@ -19,11 +18,9 @@ export default class GenCode extends React.Component {
                     bgColor='purple'
                     fgColor='white' />
                 <OMCode
-                    style={{width:50, height:50}}
+                    style={{width:300, height:300}}
                     text={this.props.item.id}
-
                 />
-
             </View>
         );
     }
