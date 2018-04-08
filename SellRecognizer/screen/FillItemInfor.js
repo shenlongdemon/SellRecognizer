@@ -11,8 +11,8 @@ export default class FillItemInfor extends React.Component {
         this.state = {
             categories: [],
             name: "",
-            description: ""
-
+            description: "",
+            category: {}
         };
     }
     componentDidMount() {
@@ -35,12 +35,15 @@ export default class FillItemInfor extends React.Component {
             });
     }
     getItem() {
-        return {
+        var item = {
             name: this.state.name,
             description: this.state.description,
             image: this.props.image,
-            ownerId: "+84905690200"
+            ownerId: "+84905690200",
+            category:this.state.category
         };
+        console.log("FillItemInfor getItem " + JSON.stringify(item));
+        return item;
     }
     render() {
         return (
@@ -60,6 +63,7 @@ export default class FillItemInfor extends React.Component {
                                 <Dropdown containerStyle={{ flex: 1, height: 30 }}
                                     label='Select category'
                                     data={this.state.categories}
+                                    onChangeText={(value, index, data) => this.setState({ category: data[index] })}
                                 />
                             </Row>
                             <Row >
