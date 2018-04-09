@@ -40,16 +40,11 @@ export default class MakeOwner extends React.Component {
         return item;
     }
     insertItem(){
-        console.log("MakeOwner.insertItem item " + JSON.stringify(item));
-        var self = this;
         var item = this.getItem();
         CommonService.insertItem(item)
             .then(function(res){
                 console.log("MakeOwner.insertItem res " + JSON.stringify(res));
-
-                let id = res.Data.id;
-                Actions.gencode({item:res.Data});
-                
+                Actions.gencode({item:res.Data});                
             });
 
     }

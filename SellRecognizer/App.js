@@ -34,6 +34,7 @@ export default class App extends React.Component {
           <Scene key="gencode"
             component={GenCode}
             title="Gen Owner"
+            hideNavBar={true}
           />
 
         </Scene>

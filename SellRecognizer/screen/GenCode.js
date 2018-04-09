@@ -11,16 +11,16 @@ export default class GenCode extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>{this.props.item.id}</Text>
                 <QRCode
-                    value={this.props.item.id}
+                    value={this.props.item.owner.code}
                     size={200}
                     bgColor='purple'
                     fgColor='white' />
                 <OMCode
                     style={{width:300, height:300}}
-                    text={this.props.item.id}
+                    text={this.props.item.owner.code}
                 />
+                <Text onPress={() => Actions.reset('listitems')}>Done</Text>
             </View>
         );
     }
