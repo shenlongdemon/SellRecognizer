@@ -38,7 +38,9 @@ export default class ListItems extends React.Component {
               dataSource={this.state.dataSource}
               renderRow={(item) =>
                 <View>
-                  <Text>{item.owner.firstName + "'s " + item.name}</Text>
+                  <Text onPress={() =>
+                Actions.itemdetail()
+              }>{item.owner.firstName + "'s " + item.name}</Text>
                   <Image
                     style={{ width: 50, height: 50 }}
                     source={{ uri: item.image.link }}
