@@ -10,7 +10,7 @@ export default class Item extends React.Component {
     }
     render() {
         return (
-            <View style={this.props.style}>
+            <View style={this.props.style,{borderBottomWidth:1,borderBottomColor:"#9b9b9b"}}>
                 <Grid>
                     <Col style={styles.container}>
                         <Image
@@ -18,7 +18,6 @@ export default class Item extends React.Component {
                             source={{ uri: this.props.item.image.link }}
                         />
                     </Col>
-
                     <Col style={styles.container}>
                         <Row size={3}>
 
@@ -43,8 +42,7 @@ export default class Item extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flex: 1,        
         alignItems: 'center',
         justifyContent: 'center',
     },

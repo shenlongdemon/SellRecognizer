@@ -17,19 +17,24 @@ export default class App extends React.Component {
                     <Scene key="tab" showLabel={true} tabs tabBarPosition="top" lazy={true} wrap={false} initial>
                         <Scene key="bluetoothqrfind"
                             component={BluetoothQRFind}
-                            title="Your items"
+                            title="bluetooth qr find"
                         />
+
                         <Scene key="listitems"
                             component={ListItems}
                             title="Your items"
-                        />
+                        >
+                           
+                        </Scene>
                         <Scene key="searchimageitem"
                             component={SearchImageItem}
                             title="Select one"
                         />
                     </Scene>
-                    <Scene key="itemdetail"  component={ItemDetail}
-                            title="Detail for item" />
+                    <Scene key="itemdetail"
+                                component={ItemDetail}
+                                title="items detail"
+                            />
 
                     {/* <Scene key="filliteminfor"
                         component={FillItemInfor}
