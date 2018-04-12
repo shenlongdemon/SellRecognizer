@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, ListView,Image } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from "../service/CommonService";
+import Item from "./part/Item";
+
 export default class ListItems extends React.Component {
   constructor(props) {
     super(props)
@@ -37,15 +39,8 @@ export default class ListItems extends React.Component {
               enableEmptySections={true}
               dataSource={this.state.dataSource}
               renderRow={(item) =>
-                <View>
-                  <Text onPress={() =>
-                Actions.itemdetail()
-              }>{item.owner.firstName + "'s " + item.name}</Text>
-                  <Image
-                    style={{ width: 50, height: 50 }}
-                    source={{ uri: item.image.link }}
-                  />
-                </View>}
+                <Item item={item} style={{ height: 130 }}></Item>
+                }
             />
           </Row>
           <Row style={{ height: 50 }}>

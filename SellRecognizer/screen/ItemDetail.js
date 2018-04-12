@@ -5,12 +5,12 @@ import { Actions } from 'react-native-router-flux'; // New code
 export default class ItemDetail extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log(JSON.stringify(this.props));
     }
     render() {
         return (
             <View style={styles.container}>
-                <Text> Item Detail </Text>
+                <Text> Item Detail {this.props.item.name} </Text>
             </View>
         );
     }
