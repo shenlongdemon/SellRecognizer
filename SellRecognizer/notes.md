@@ -30,3 +30,6 @@ https://cse.google.com/cse/setup/basic?cx=004370175914457095242:a4ftrdtwhm4
 ### Weather
 https://openweathermap.org/
 
+mongod --dbpath /Volumes/DatA/Application/mongodb/db
+
+

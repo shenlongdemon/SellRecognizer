@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 import CommonPage from "./CommonPage"
+import { Col, Row, Grid } from "react-native-easy-grid";
+
 export default class ItemDetail extends React.Component {
     constructor(props) {
         super(props);
@@ -10,7 +12,19 @@ export default class ItemDetail extends React.Component {
     render() {
         return (
             <CommonPage style={styles.container}>
-                <Text> Item Detail  </Text>
+                <Grid>
+                    <Row>
+
+                    </Row>
+                    <Row style={{ height: 50 }}>
+                        <Col>
+                            <Text>Sell</Text>
+                        </Col>
+                        <Col>
+                            <Text>History</Text>
+                        </Col>
+                    </Row>
+                </Grid>
             </CommonPage>
         );
     }
