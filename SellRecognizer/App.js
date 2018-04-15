@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native';
 import { Router, Scene, ActionConst } from 'react-native-router-flux';
 import StoreLocalService from './service/StoreLocalService'
-import { Icon, SocialMediaType } from 'react-native-elements'
 
 
 import ListItems from './screen/ListItems';
@@ -59,14 +58,20 @@ export default class App extends React.Component {
             )
         } else {
             return (
-                <Router>
-                    <Scene key="root" navigationBarStyle={{ backgroundColor: '#e65e5e' }}>
+                <Router >
+                    <Scene key="root" 
+                    navigationBarStyle={{ backgroundColor: '#e65e5e' }}
+                    titleStyle={{color:'white'}}
+                    backButtonImage={require('./assets/back.png')}
+                    leftButtonIconStyle={{width:20, height:20}}
+                    backTitle = {null}
+                    >
 
                         <Scene key="login"
                             component={Login}
                             title=""
                             initial={!this.state.logged}
-
+                            hideNavBar
                         />
                         <Scene key="mainboard"
                             showLabel={true}

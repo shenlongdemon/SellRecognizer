@@ -10,16 +10,17 @@ export default class Item extends React.Component {
     }
     render() {
         return (
-            <View style={this.props.style,{borderBottomWidth:1,borderBottomColor:"#9b9b9b"}}>
-                <Grid>
+            <View style={styles.container} >
+                <Grid style={this.props.style,{borderBottomWidth:1,borderBottomColor:"#9b9b9b", width:"90%"}}>
                     <Col style={styles.container}>
                         <Image
-                            style={{ width: this.props.style.height, height: this.props.style.height }}
+                            style={{ width: this.props.style.height - 10, height: this.props.style.height - 10 }}
                             source={{ uri: this.props.item.image.link }}
+                            resizeMode="contain"
                         />
                     </Col>
                     <Col style={styles.container}>
-                        <Row size={3}>
+                        <Row size={5}>
 
                         </Row>
                         <Row size={1}><Text>{this.props.item.category.value}</Text></Row>
