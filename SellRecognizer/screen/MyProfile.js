@@ -12,7 +12,7 @@ export default class MyProfile extends React.Component {
         return (
             <CommonPage styles={styles.container}>
                 <Text>
-                    Payment
+                    Myprofile
             </Text>
             </CommonPage>
         );

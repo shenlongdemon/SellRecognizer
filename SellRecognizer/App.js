@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native';
 import { Router, Scene, ActionConst } from 'react-native-router-flux';
 import StoreLocalService from './service/StoreLocalService'
+import { Icon, SocialMediaType } from 'react-native-elements'
 
 
 import ListItems from './screen/ListItems';
@@ -14,24 +15,22 @@ import ItemDetail from './screen/ItemDetail'
 import BuyItem from './screen/BuyItem'
 import Login from './screen/Login'
 import MyProfile from './screen/MyProfile'
-
-const TabIcon = ({ selected, title }) => {
+const TabIcon = ({ title, focused }) => {
+    let image;
     switch (title) {
-      case 'dash':
-        return (
-          <Ionicons name={selected ? 'ios-speedometer' : 'ios-speedometer-outline'} size={30} color={selected ? Colors.themeColor : Colors.label} />
-        )
-      case 'mess':
-        return (
-          <Ionicons name={selected ? 'ios-mail' : 'ios-mail-outline'} size={30} color={selected ? Colors.themeColor : Colors.label} />
-        )
-      case 'params':
-        return (
-          <Ionicons name={selected ? 'ios-settings' : 'ios-settings-outline'} size={30} color={selected ? Colors.themeColor : Colors.label} />
-        )
+        case 'bluetoothqrfind':
+            image = focused ? require('./assets/browse.png') : require('./assets/browse.png');
+            break;
+        case 'listitems':
+            image = focused ? require('./assets/documents.png') : require('./assets/documents.png');
+            break;
+        case 'myprofile':
+            image = focused ? require('./assets/myprofile.png') : require('./assets/myprofile.png');
+            break;
     }
-  }
 
+    return (<Image source={image} style={{ width: 30, height: 30 }} resizeMode="contain" />);
+}
 export default class App extends React.Component {
     constructor() {
         super();
@@ -52,7 +51,7 @@ export default class App extends React.Component {
         });
 
     }
-    
+
     render() {
         if (!this.state.isLoaded) {
             return (
@@ -61,18 +60,19 @@ export default class App extends React.Component {
         } else {
             return (
                 <Router>
-                    <Scene key="root" navigationBarStyle={{backgroundColor: '#e65e5e'}}>
+                    <Scene key="root" navigationBarStyle={{ backgroundColor: '#e65e5e' }}>
 
                         <Scene key="login"
                             component={Login}
                             title=""
                             initial={!this.state.logged}
-                            hideNavBar
+
                         />
                         <Scene key="mainboard"
                             showLabel={true}
                             tabs
-                            tabBarPosition="top"
+                            hideNavBar
+                            //tabBarPosition="top"
                             lazy={true}
                             wrap={false}
                             type={ActionConst.RESET}
@@ -80,22 +80,40 @@ export default class App extends React.Component {
                             tabBarStyle={{ backgroundColor: '#e65e5e' }}
                         >
                             <Scene key="bluetoothqrfind"
-                                component={BluetoothQRFind}
-                            
-                                title="bluetooth qr find" 
-                                initial
-                                icon={SimpleLineIcon}
-                            />
+                                title="bluetoothqrfind"
+                                icon={TabIcon}
+                            >
+                                <Scene key="bluetoothqrfind"
+                                    component={BluetoothQRFind}
+                                    title="CheGo"
+                                    initial
+                                    icon={TabIcon}
+                                    tabBarLabel="TAB #1"
+                                >
+                                </Scene>
+                            </Scene>
 
                             <Scene key="listitems"
-                                component={ListItems}
-                                title="Your items"
+                                title="listitems"
+                                icon={TabIcon}
                             >
+                                <Scene key="listitems"
+                                    component={ListItems}
+                                    title="My Documents"
+                                    icon={TabIcon}
+                                >
+                                </Scene>
                             </Scene>
                             <Scene key="myprofile"
-                                component={MyProfile}
-                                title="My Profile"
-                            />
+                                title="myprofile"
+                                icon={TabIcon}
+                            >
+                                <Scene key="myprofile"
+                                    component={MyProfile}
+                                    title="My Profile"
+                                    icon={TabIcon}
+                                />
+                            </Scene>
                         </Scene>
 
                         <Scene key="itemdetail"

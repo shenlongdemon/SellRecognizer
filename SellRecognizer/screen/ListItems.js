@@ -43,13 +43,13 @@ export default class ListItems extends React.Component {
                             }
                         />
                     </Row>
-                    <Row style={{ height: 50 }}>
+                    {/* <Row style={{ height: 50 }}>
                         <Text
                             onPress={() =>
                                 Actions.searchimageitem()
                             } // New Code
                         >Add item</Text>
-                    </Row>
+                    </Row> */}
                 </Grid>
             </CommonPage>
         );
