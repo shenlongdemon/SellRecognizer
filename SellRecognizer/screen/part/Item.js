@@ -24,7 +24,7 @@ export default class Item extends React.Component {
                         </Row>
                         <Row size={1}><Text>{this.props.item.category.value}</Text></Row>
                         <Row size={1}><Text>{this.props.item.name}</Text></Row>
-                        <Row size={1}><Text></Text></Row>
+                        <Row size={1}><Text>{this.props.item.owner.firstName}</Text></Row>
                     </Col>
                     <Col style={styles.imageArrow} >
                     <TouchableOpacity activeOpacity={.5} onPress={() => Actions.itemdetail({item:this.props.item})}>

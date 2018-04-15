@@ -21,10 +21,9 @@ export default class ListItems extends React.Component {
     }
     loadItems() {
         var self = this;
-        CommonService.getItemByOwnerId("+84905690200")
+        CommonService.getItems()
             .then(function (res) {
                 console.log("CommonService.getItems res " + JSON.stringify(res));
-
                 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                 self.setState({ dataSource: ds.cloneWithRows(res.Data) });
                 console.log("CommonService.getItems state " + JSON.stringify(this.state));

@@ -93,7 +93,7 @@ export default class FillItemInfor extends React.Component {
                             onPress={() =>
                                 Actions.makeowner({ item: this.getItem() })
                             } // New Code
-                        >Make ouwer for it</Text>
+                        >Generate code</Text>
                     </Row>
                 </Grid>
             </View>

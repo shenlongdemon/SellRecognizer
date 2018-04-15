@@ -3,10 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 import QRCode from 'react-native-qrcode';
 import OMCode from '../components/OMCode';
+import StoreLocalService from "../service/StoreLocalService";
+
 export default class BluetoothQRFind extends React.Component {
     constructor(props) {
         super(props);
-
+        StoreLocalService.getPhone().then(function (phone) {
+            console.log("BluetoothQRFind phone " + phone);
+        });
     }
     render() {
         return (
@@ -17,9 +21,14 @@ export default class BluetoothQRFind extends React.Component {
                     bgColor='black'
                     fgColor='white' />
                 <OMCode
-                    style={{width:300, height:300}}
+                    style={{ width: 300, height: 300 }}
                     text="nguyen thanh long"
                 />
+                <Text
+                    onPress={() =>
+                        StoreLocalService.clearAll()
+                    } // New Code
+                >Generate code</Text>
             </View>
         );
     }

@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux'; // New code
 export default class CommonPage extends React.Component {
     constructor(props) {
         super(props);
-        console.log("CommonPage" + JSON.stringify(StyleSheet.flatten(this.props.style)));
+        console.log("CommonPage " + JSON.stringify(StyleSheet.flatten(this.props.style)));
     }
     render() {
         return (
