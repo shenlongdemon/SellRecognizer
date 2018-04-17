@@ -12,18 +12,19 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 export default class PublishSell extends React.Component {
     constructor(props) {
         super(props);
-        console.log(JSON.stringify(this.props));
+        console.log("PublishSell " + JSON.stringify(this.props.item));
         this.state = {
-            item : this.props.item
+            item: this.props.item
         };
-
     }
-    componentWillMount() {
-        // Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
-    }
+   
     publishSell() {
+        console.log("PublishSell publishSell");
+
         var self = this;
-        CommonService.publishSell().then((res) => {
+        CommonService.publishSell(this.state.item).then((res) => {
+            console.log("PublishSell publishSell done with res " + JSON.stringify(res));
+
             if (res.Data == 1){
                 self.setState({item: res.Data});
             }
@@ -55,7 +56,7 @@ export default class PublishSell extends React.Component {
                     </Row>
                     
                     <Row style={styles.container}>
-                        <Button large buttonStyle={styles.button} title="Generate Code" onPress={this.publishSell(this)} />
+                        <Button large buttonStyle={styles.button} title="Generate Code" onPress={this.publishSell.bind(this)} />
                     </Row>
 
                     <Row style={{ height: 50 }}>

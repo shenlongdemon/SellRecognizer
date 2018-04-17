@@ -10,7 +10,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 export default class ItemDetail extends React.Component {
     constructor(props) {
         super(props);
-        console.log(JSON.stringify(this.props));
+        console.log("ItemDetail " + JSON.stringify(this.props.item));
 
 
     }
@@ -18,7 +18,7 @@ export default class ItemDetail extends React.Component {
         Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
     }
     sell() {
-        Actions.publishsell({item:this.props.item});
+        Actions.publishsell({ item: this.props.item });
     }
     render() {
         return (
@@ -58,8 +58,8 @@ export default class ItemDetail extends React.Component {
                                     <Button large buttonStyle={styles.button} title="SELL" onPress={this.sell.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
-                                <Col>                                
-                                    <Button large rightIcon={{name: 'angle-right', type: 'font-awesome', size:20}} buttonStyle={styles.button} title="HISTORY" onPress={this.sell.bind(this)} />
+                                <Col>
+                                    <Button large rightIcon={{ name: 'angle-right', type: 'font-awesome', size: 20 }} buttonStyle={styles.button} title="HISTORY" onPress={this.sell.bind(this)} />
                                 </Col>
                             </Grid>
                         </ImageBackground>
