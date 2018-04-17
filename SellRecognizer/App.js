@@ -14,6 +14,8 @@ import ItemDetail from './screen/ItemDetail'
 import BuyItem from './screen/BuyItem'
 import Login from './screen/Login'
 import MyProfile from './screen/MyProfile'
+import PublishSell from './screen/PublishSell'
+
 const TabIcon = ({ title, focused }) => {
     let image;
     switch (title) {
@@ -59,20 +61,21 @@ export default class App extends React.Component {
         } else {
             return (
                 <Router >
-                    <Scene key="root" 
-                    navigationBarStyle={{ backgroundColor: '#e65e5e' }}
-                    titleStyle={{color:'white'}}
-                    backButtonImage={require('./assets/back.png')}
-                    leftButtonIconStyle={{width:20, height:20}}
-                    backTitle = {null}
-                    >
+                    <Scene key="root"
+                        navigationBarStyle={{ backgroundColor: '#e65e5e' }}
+                        titleStyle={{ color: 'white' }}
+                        backButtonImage={require('./assets/back.png')}
+                        leftButtonIconStyle={{ width: 20, height: 20, resizeMode:'contain' }}
+                        backTitle={null}
 
+                    >
                         <Scene key="login"
                             component={Login}
                             title=""
                             initial={!this.state.logged}
                             hideNavBar
                         />
+                        
                         <Scene key="mainboard"
                             showLabel={true}
                             tabs
@@ -123,7 +126,11 @@ export default class App extends React.Component {
 
                         <Scene key="itemdetail"
                             component={ItemDetail}
-                            title="items detail"
+                            title=""
+                        />
+                        <Scene key="publishsell"
+                            component={PublishSell}
+                            title="Generate Code"
                         />
                         <Scene key="buyitem"
                             component={BuyItem}

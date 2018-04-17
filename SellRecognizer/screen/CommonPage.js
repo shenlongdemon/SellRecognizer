@@ -9,15 +9,20 @@ export default class CommonPage extends React.Component {
     }
     render() {
         return (
-            <ImageBackground
-                resizeMode='stretch'
-                source={require("../assets/background.png")}
-                style={styles.container}
-            >
+                       
                 <View style={styles.container}>
                     {this.props.children}
+
+                    <View style={{height:7, backgroundColor:'#c6394a'}} >
+
+                    </View>
                 </View>
-            </ImageBackground>
+            //      <ImageBackground
+            //      resizeMode='stretch'
+            //      source={require("../assets/background.png")}
+            //      style={styles.container}
+            //  >    
+            // </ImageBackground>
 
         );
     }
@@ -25,7 +30,8 @@ export default class CommonPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor:"#e6e6e6"
     }
 
 });

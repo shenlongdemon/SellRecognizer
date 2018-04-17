@@ -4,21 +4,30 @@ import { FormLabel, FormInput, Button, Text } from 'react-native-elements'
 import QRCode from 'react-native-qrcode';
 import OMCode from '../components/OMCode';
 import { Actions } from 'react-native-router-flux'; // New code
-import CommonPage from "./CommonPage"
+import CommonPage from "./CommonPage";
+import CommonService from "../service/CommonService";
+
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-export default class ItemDetail extends React.Component {
+export default class PublishSell extends React.Component {
     constructor(props) {
         super(props);
         console.log(JSON.stringify(this.props));
-
+        this.state = {
+            item : this.props.item
+        };
 
     }
     componentWillMount() {
-        Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
+        // Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
     }
-    sell() {
-        Actions.publishsell({item:this.props.item});
+    publishSell() {
+        var self = this;
+        CommonService.publishSell().then((res) => {
+            if (res.Data == 1){
+                self.setState({item: res.Data});
+            }
+        });
     }
     render() {
         return (
@@ -30,7 +39,7 @@ export default class ItemDetail extends React.Component {
                     <Row >
                         <Image
                             style={{ height: "100%", width: "100%" }}
-                            source={{ uri: this.props.item.image.link }}
+                            source={{ uri: this.state.item.image.link }}
                             resizeMode="contain"
                         />
                     </Row>
@@ -39,30 +48,18 @@ export default class ItemDetail extends React.Component {
                     </Row>
                     <Row style={{ alignItems: 'center', justifyContent: 'center' }} >
                         <QRCode
-                            value={this.props.item.code}
+                            value={this.state.item.sellCode}
                             //size={100}
                             bgColor='black'
                             fgColor='white' />
                     </Row>
-                    <Row >
-
+                    
+                    <Row style={styles.container}>
+                        <Button large buttonStyle={styles.button} title="Generate Code" onPress={this.publishSell(this)} />
                     </Row>
 
                     <Row style={{ height: 50 }}>
-                        <ImageBackground
-                            resizeMode='stretch'
-                            source={require("../assets/background.png")}
-                            style={styles.container}
-                        ><Grid style={styles.container}>
-                                <Col>
-                                    <Button large buttonStyle={styles.button} title="SELL" onPress={this.sell.bind(this)} />
-                                </Col>
-                                <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
-                                <Col>                                
-                                    <Button large rightIcon={{name: 'angle-right', type: 'font-awesome', size:20}} buttonStyle={styles.button} title="HISTORY" onPress={this.sell.bind(this)} />
-                                </Col>
-                            </Grid>
-                        </ImageBackground>
+
 
                     </Row>
                 </Grid>
@@ -78,6 +75,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-        backgroundColor: "transparent"
+        backgroundColor: "#eda751",
+        borderColor: "transparent",
+        borderRadius: 10,
+        width: '100%',
+
+
     },
 });
