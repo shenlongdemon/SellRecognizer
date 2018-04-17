@@ -39,7 +39,7 @@ export default class CommonService extends React.Component {
         return WebApi.request("POST", url, data, null);
     }
     static publishSell(itemId, userInfo){
-        console.log("CommonService publishSell " + item);
+        console.log("CommonService publishSell " + itemId);
         var data = {itemId: itemId, userInfo: userInfo};
         var url = config.service.url + "/api/sellrecognizer/publishSell";
         return WebApi.request("POST", url, data, null);
