@@ -15,6 +15,8 @@ import BuyItem from './screen/BuyItem'
 import Login from './screen/Login'
 import MyProfile from './screen/MyProfile'
 import PublishSell from './screen/PublishSell'
+import FindProduct from './screen/FindProduct'
+
 
 const TabIcon = ({ title, focused }) => {
     let image;
@@ -153,7 +155,12 @@ export default class App extends React.Component {
                             title="Gen Owner"
                             hideNavBar={true}
                         />
-
+                        <Scene key="findproduct"
+                            component={FindProduct}
+                            
+                            title="All Products Around"
+                        />
+                        
 
                     </Scene>
                 </Router>

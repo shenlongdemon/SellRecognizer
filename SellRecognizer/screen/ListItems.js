@@ -5,6 +5,8 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from "../service/CommonService";
 import CommonPage from "./CommonPage"
 import Item from "./part/Item";
+import FindDocumentButton from "./part/FindDocumentButton";
+
 
 export default class ListItems extends React.Component {
     constructor(props) {
@@ -35,7 +37,7 @@ export default class ListItems extends React.Component {
                 <Grid >
                     <Row >
                         <ListView
-                            style={{backgroundColor:"#e6e6e6"}}
+                            style={{ backgroundColor: "#e6e6e6" }}
                             enableEmptySections={true}
                             dataSource={this.state.dataSource}
                             renderRow={(item) =>
@@ -43,14 +45,9 @@ export default class ListItems extends React.Component {
                             }
                         />
                     </Row>
-                    {/* <Row style={{ height: 50 }}>
-                        <Text
-                            onPress={() =>
-                                Actions.searchimageitem()
-                            } // New Code
-                        >Add item</Text>
-                    </Row> */}
+
                 </Grid>
+                <FindDocumentButton style={styles.findbutton} />
             </CommonPage>
         );
     }
@@ -58,6 +55,14 @@ export default class ListItems extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1        
+        flex: 1
     },
+    findbutton: {
+        position: 'absolute',
+        width: "100%",
+        height: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
+        bottom: 0,
+    }
 });

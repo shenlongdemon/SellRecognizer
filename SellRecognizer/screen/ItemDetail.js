@@ -14,6 +14,9 @@ export default class ItemDetail extends React.Component {
 
 
     }
+    componentWillReceiveProps(nextProps) {
+        Actions.refresh({ title: nextProps.item.name + " " + nextProps.item.category.value })
+    }
     componentWillMount() {
         Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
     }

@@ -14,8 +14,9 @@ export default class PublishSell extends React.Component {
     constructor(props) {
         super(props);
         console.log("PublishSell this.props.item" + JSON.stringify(this.props.item));
-        this.state = {            
-            user: {}
+        this.state = {
+            user: {},
+            item: props.item
         };
     }
     componentDidMount() {
@@ -39,11 +40,11 @@ export default class PublishSell extends React.Component {
         console.log("PublishSell publishSell " + JSON.stringify(this.state));
 
         var self = this;
-        CommonService.publishSell(self.props.item.id, self.state.user).then((res) => {
+        CommonService.publishSell(self.state.item.id, self.state.user).then((res) => {
             console.log("PublishSell publishSell done with res " + JSON.stringify(res));
 
             if (res.Data == 1) {
-                this.props.item = res.Data;
+                self.state.item = res.Data;
             }
         });
     }
@@ -57,7 +58,7 @@ export default class PublishSell extends React.Component {
                     <Row >
                         <Image
                             style={{ height: "100%", width: "100%" }}
-                            source={{ uri: this.props.item.image.link }}
+                            source={{ uri: this.state.item.image.link }}
                             resizeMode="contain"
                         />
                     </Row>
@@ -66,9 +67,9 @@ export default class PublishSell extends React.Component {
                     </Row>
                     <Row style={{ alignItems: 'center', justifyContent: 'center' }} >
                         {
-                            (this.props.item.sellCode != undefined && this.props.item.sellCode != "") ?
+                            (this.state.item.sellCode != undefined && this.state.item.sellCode != "") ?
                                 <QRCode
-                                    value={this.props.item.sellCode}
+                                    value={this.state.item.sellCode}
                                     //size={100}
                                     bgColor='black'
                                     fgColor='white' />
@@ -79,7 +80,7 @@ export default class PublishSell extends React.Component {
 
                     <Row style={styles.container}>
                         {
-                            (this.props.item.sellCode == undefined || this.props.item.sellCode == "") ?
+                            (this.state.item.sellCode == undefined || this.state.item.sellCode == "") ?
                                 <Button large buttonStyle={styles.button} title="Generate Code" onPress={this.publishSell.bind(this)} />
                                 : <View />
                         }
