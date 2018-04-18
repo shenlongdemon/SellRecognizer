@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from "../service/CommonService";
 import CommonPage from "./CommonPage"
+import StoreLocalService from "../service/StoreLocalService";
 import Item from "./part/Item";
 import FindDocumentButton from "./part/FindDocumentButton";
 
@@ -13,22 +14,32 @@ export default class ListItems extends React.Component {
         super(props)
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
-            dataSource: ds.cloneWithRows([])
+            dataSource: ds.cloneWithRows([]),
+            user: {},
+            pageNum: 1
         };
     }
     componentDidMount() {
-        this.setState({ isMounted: true })
-        this.loadItems();
+        var self = this;
+        StoreLocalService.getUser().then(function (user) {
+            self.setState({ user: user });
+            self.loadItems();
+        });
+
 
     }
     loadItems() {
         var self = this;
-        CommonService.getItems()
+        CommonService.getItemsByOwnerId(this.state.user.id)
             .then(function (res) {
-                console.log("CommonService.getItems res " + JSON.stringify(res));
-                const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-                self.setState({ dataSource: ds.cloneWithRows(res.Data) });
-                console.log("CommonService.getItems state " + JSON.stringify(this.state));
+                if (res.Status == 1) {
+                    console.log("CommonService.getItems res " + JSON.stringify(res));
+                    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+                    self.setState({ dataSource: ds.cloneWithRows(res.Data) });
+                    console.log("CommonService.getItems state " + JSON.stringify(this.state));
+                    self.setState({pageNum: self.state.pageNum + 1});
+
+                }
             });
     }
     render() {
@@ -47,7 +58,7 @@ export default class ListItems extends React.Component {
                     </Row>
 
                 </Grid>
-                <FindDocumentButton style={styles.findbutton} />
+                {/* <FindDocumentButton style={styles.findbutton} /> */}
             </CommonPage>
         );
     }

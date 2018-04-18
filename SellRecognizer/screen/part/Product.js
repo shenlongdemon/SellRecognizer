@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { FormLabel, FormInput, Button, Text } from 'react-native-elements'
 
-export default class Item extends React.Component {
+export default class Product extends React.Component {
     constructor(props) {
         super(props);
         console.log("Item " + this.props.item.id);

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { FormLabel, FormInput, Text, Button } from 'react-native-elements'
+import { FormLabel, FormInput, Text, Button, Icon } from 'react-native-elements'
 
 export default class FindDocumentButton extends React.Component {
     constructor(props) {
@@ -21,8 +21,18 @@ export default class FindDocumentButton extends React.Component {
                     <Col>
 
                     </Col>
-                    <Col style={{ width: 20,  backgroundColor:'red' }}>
-                    <Button buttonStyle={styles.smallbutton} icon={{ name: 'caret-up', type: 'font-awesome', size: 20 }} title="" onPress={this.findProduct.bind(this)} />
+                    <Col style={{ width: 20}}>
+                        <ImageBackground
+                            resizeMode='stretch'
+                            source={require("../../assets/background.png")}
+                            style={styles.container}>
+                            <Icon
+                                iconStyle={{ backgroundColor: 'transparent' }}
+                                color='white'
+                                name='caret-up' type='font-awesome'
+                                size={20}
+                                onPress={this.findProduct.bind(this)} />
+                        </ImageBackground>
 
                     </Col>
                     <Col style={{ width: 20 }}>
@@ -38,7 +48,7 @@ export default class FindDocumentButton extends React.Component {
                             <Button large buttonStyle={styles.button} title="All Products Around" onPress={this.findProduct.bind(this)} />
                         </ImageBackground>
                     </Col>
-                   
+
                 </Row>
             </Grid>
         );
@@ -55,11 +65,11 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        backgroundColor:'transparent',
+        backgroundColor: 'transparent',
     },
-    smallbutton:{
-        width:20,
-        height:20,
-        backgroundColor:'transparent',
+    smallbutton: {
+        width: 20,
+        height: 20,
+        backgroundColor: 'transparent',
     }
 });

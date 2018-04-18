@@ -16,6 +16,7 @@ import Login from './screen/Login'
 import MyProfile from './screen/MyProfile'
 import PublishSell from './screen/PublishSell'
 import FindProduct from './screen/FindProduct'
+import LookAround from './screen/LookAround';
 
 
 const TabIcon = ({ title, focused }) => {
@@ -101,6 +102,12 @@ export default class App extends React.Component {
                                     tabBarLabel="TAB #1"
                                 >
                                 </Scene>
+                                <Scene key="lookaround"
+                                    component={LookAround}
+                                    title="Look Around"
+                                   
+                                >
+                                </Scene>
                             </Scene>
 
                             <Scene key="listitems"
@@ -157,7 +164,7 @@ export default class App extends React.Component {
                         />
                         <Scene key="findproduct"
                             component={FindProduct}
-                            
+                            direction="vertical"
                             title="All Products Around"
                         />
                         
