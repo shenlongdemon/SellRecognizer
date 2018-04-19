@@ -11,9 +11,7 @@ export default class FindProduct extends React.Component {
         super(props)
        
     }
-    componentDidMount() {      
-
-    }
+    
     render() {
         return (
             <CommonPage style={styles.container}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native';
 import { Router, Scene, ActionConst } from 'react-native-router-flux';
-import StoreLocalService from './service/StoreLocalService'
+import StoreLocalService from './service/StoreLocalService';
 
 
 import ListItems from './screen/ListItems';
@@ -10,13 +10,15 @@ import FillItemInfor from './screen/FillItemInfor';
 import MakeOwner from './screen/MakeOwner';
 import GenCode from './screen/GenCode';
 import BluetoothQRFind from './screen/BluetoothQRFind';
-import ItemDetail from './screen/ItemDetail'
-import BuyItem from './screen/BuyItem'
-import Login from './screen/Login'
-import MyProfile from './screen/MyProfile'
-import PublishSell from './screen/PublishSell'
-import FindProduct from './screen/FindProduct'
+import ItemDetail from './screen/ItemDetail';
+import PaymentProduct from './screen/PaymentProduct';
+import Login from './screen/Login';
+import MyProfile from './screen/MyProfile';
+import PublishSell from './screen/PublishSell';
+import FindProduct from './screen/FindProduct';
 import LookAround from './screen/LookAround';
+import ProductDetail from './screen/ProductDetail';
+import History from './screen/History';
 
 
 const TabIcon = ({ title, focused }) => {
@@ -68,7 +70,7 @@ export default class App extends React.Component {
                         navigationBarStyle={{ backgroundColor: '#e65e5e' }}
                         titleStyle={{ color: 'white' }}
                         backButtonImage={require('./assets/back.png')}
-                        leftButtonIconStyle={{ width: 20, height: 20, resizeMode:'contain' }}
+                        leftButtonIconStyle={{ width: 20, height: 20, resizeMode: 'contain' }}
                         backTitle={null}
 
                     >
@@ -78,7 +80,7 @@ export default class App extends React.Component {
                             initial={!this.state.logged}
                             hideNavBar
                         />
-                        
+
                         <Scene key="mainboard"
                             showLabel={true}
                             tabs
@@ -105,7 +107,7 @@ export default class App extends React.Component {
                                 <Scene key="lookaround"
                                     component={LookAround}
                                     title="Look Around"
-                                   
+
                                 >
                                 </Scene>
                             </Scene>
@@ -137,13 +139,22 @@ export default class App extends React.Component {
                             component={ItemDetail}
                             title=""
                         />
+                        <Scene key="productdetail"
+                            component={ProductDetail}
+                            title=""
+                        />
+                        <Scene key="history"
+                            component={History}
+                            title="History"
+                        />
+                        
                         <Scene key="publishsell"
                             component={PublishSell}
                             title="Generate Code"
                         />
-                        <Scene key="buyitem"
-                            component={BuyItem}
-                            title="Buy Item"
+                        <Scene key="paymentproduct"
+                            component={PaymentProduct}
+                            title="Payment"
                         />
                         <Scene key="searchimageitem"
                             component={SearchImageItem}
@@ -167,7 +178,7 @@ export default class App extends React.Component {
                             direction="vertical"
                             title="All Products Around"
                         />
-                        
+
 
                     </Scene>
                 </Router>

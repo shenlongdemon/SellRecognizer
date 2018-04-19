@@ -12,7 +12,7 @@ export default class Product extends React.Component {
     render() {
         return (
             <View style={[styles.container, { height: this.props.style.height }]} >
-                <TouchableOpacity activeOpacity={.5} onPress={() => Actions.itemdetail({ item: this.props.item })}>
+                <TouchableOpacity activeOpacity={.5} onPress={() => Actions.productdetail({ item: this.props.item })}>
                     <Grid style={{ borderBottomWidth: 2, borderBottomColor: "gray", width: "90%" }}>
                         <Col style={styles.center} >
                             <Image

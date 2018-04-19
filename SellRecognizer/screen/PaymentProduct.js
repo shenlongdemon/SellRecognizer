@@ -7,9 +7,9 @@ import { Actions } from 'react-native-router-flux'; // New code
 import CommonPage from "./CommonPage"
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from '../service/CommonService';
-import DetectService from '../components/DetectService';
-import StoreLocalService from '../service/StoreLocalService'
-export default class BuyItem extends CommonPage {
+
+
+export default class PaymentProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,24 +18,19 @@ export default class BuyItem extends CommonPage {
         };
     }
     componentDidMount() {
-        
-       var self = this;
-        StoreLocalService.getUser().then((user) => {
-            DetectService.getDeviceInfo().then((data) => {
-                user.position = data.position;
-                user.weather = data.weather;
-                self.setState({ user: user})
-            }).catch((e) => {
-                
-            });
-            
-        });        
+
+        var self = this;
+
+        CommonService.getUserInfo().then((user) => {
+            self.setState({ user: user })
+            console.log("PaymentProduct userInfo " + JSON.stringify(self.state.user));
+        });
     }
 
     payment() {
         var user = this.state.user;
-       
-        console.log("BuyItem payment" + JSON.stringify(this.state) );
+
+        console.log("BuyItem payment" + JSON.stringify(this.state));
         if (this.state.user) {
             CommonService.payment(this.props.item.id, this.state.user).then(function (res) {
 
@@ -47,18 +42,20 @@ export default class BuyItem extends CommonPage {
     }
     render() {
         return (
+            <CommonPage>
+                <Grid>
+                    <Row>
 
-            <Grid>
-                <Row>
-
-                </Row>
-                <Row style={{ height: 50 }}>
-                    <Text
-                        onPress={() => this.payment()}>
-                        Payment
-                    </Text>
-                </Row>
-            </Grid>
+                    </Row>
+                    <Row style={{ height: 50 }}>
+                        <Col size={1}></Col>
+                        <Col size={7}  >
+                            <Button fontSize={20} buttonStyle={styles.button} title="PAYMENT" onPress={this.payment.bind(this)} backgroundColor="#eda751" />
+                        </Col>
+                        <Col size={1}></Col>
+                    </Row>
+                </Grid>
+            </CommonPage>
 
         );
     }
@@ -69,5 +66,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    button: {
+        borderColor: "transparent",
+        borderRadius: 10,
+        width: '100%',
+        height: '90%',
+
     },
 });

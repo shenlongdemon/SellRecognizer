@@ -7,10 +7,10 @@ import { Actions } from 'react-native-router-flux'; // New code
 import CommonPage from "./CommonPage"
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-export default class ItemDetail extends React.Component {
+export default class ProductDetail extends React.Component  {
     constructor(props) {
         super(props);
-        console.log("ItemDetail " + JSON.stringify(this.props.item));
+        console.log("ProductDetail " + JSON.stringify(this.props.item));
 
 
     }
@@ -20,8 +20,11 @@ export default class ItemDetail extends React.Component {
     componentWillMount() {
         Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
     }
-    sell() {
-        Actions.publishsell({ item: this.props.item });
+    buy() {
+        Actions.paymentproduct({ item: this.props.item });
+    }
+    history(){
+        Actions.history({ item: this.props.item });
     }
     render() {
         return (
@@ -58,11 +61,11 @@ export default class ItemDetail extends React.Component {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button large buttonStyle={styles.button} title="SELL" onPress={this.sell.bind(this)} />
+                                    <Button large buttonStyle={styles.button} title="BUY" onPress={this.buy.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>
-                                    <Button large rightIcon={{ name: 'angle-right', type: 'font-awesome', size: 20 }} buttonStyle={styles.button} title="HISTORY" onPress={this.sell.bind(this)} />
+                                    <Button large rightIcon={{ name: 'angle-right', type: 'font-awesome', size: 20 }} buttonStyle={styles.button} title="HISTORY" onPress={this.history.bind(this)} />
                                 </Col>
                             </Grid>
                         </ImageBackground>

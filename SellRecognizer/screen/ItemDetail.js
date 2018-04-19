@@ -23,6 +23,9 @@ export default class ItemDetail extends React.Component {
     sell() {
         Actions.publishsell({ item: this.props.item });
     }
+    history(){
+        Actions.history({ item: this.props.item });
+    }
     render() {
         return (
             <CommonPage style={styles.container}>
@@ -62,7 +65,7 @@ export default class ItemDetail extends React.Component {
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>
-                                    <Button large rightIcon={{ name: 'angle-right', type: 'font-awesome', size: 20 }} buttonStyle={styles.button} title="HISTORY" onPress={this.sell.bind(this)} />
+                                    <Button large rightIcon={{ name: 'angle-right', type: 'font-awesome', size: 20 }} buttonStyle={styles.button} title="HISTORY" onPress={this.history.bind(this)} />
                                 </Col>
                             </Grid>
                         </ImageBackground>
