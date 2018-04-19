@@ -30,9 +30,10 @@ export default class CommonService extends React.Component {
 
 
     static login(phone, password) {
-        console.log("CommonService login " + phone + " " + password);
+        
         var num = phone.replace("+", "%2B");
         var url = config.service.url + "/api/sellrecognizer/login?phone=" + num + "&password=" + password;
+        console.log("CommonService login " + url  + phone + " " + password);
         return WebApi.request("GET", url, null, null);
     }
     static payment(itemId, buyerInfo) {
@@ -53,7 +54,7 @@ export default class CommonService extends React.Component {
         var url = config.service.url + "/api/sellrecognizer/getSelledItems?pageNum=" + pageNum + "&pageSize=20";
         return WebApi.request("GET", url, null, null);
     }
-    static getUserInfo(){
+    static getUserInfo() {
         return new Promise(
             function (resolve, reject) {
                 StoreLocalService.getUser().then((user) => {
@@ -63,8 +64,13 @@ export default class CommonService extends React.Component {
                         resolve(user);
                     }).catch((e) => {
                         reject(e);
-                    });                    
-                });    
+                    });
+                });
             });
+    }
+    static getItemByQRCode(qrcode){
+        console.log("CommonService getItemByQRCode qrcode " + qrcode);
+        var url = config.service.url + "/api/sellrecognizer/getItemByQRCode?qrcode=" + qrcode;
+        return WebApi.request("GET", url, null, null);
     }
 }

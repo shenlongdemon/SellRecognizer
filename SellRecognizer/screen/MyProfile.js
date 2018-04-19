@@ -14,11 +14,17 @@ export default class MyProfile extends React.Component {
     render() {
         return (
             <CommonPage styles={styles.container}>
-                <Text
-                    onPress={() => this.getImage()} // New Code
-                >
-                    Myprofile
-            </Text>
+                <Grid>
+                    <Row>
+                        <Text onPress={() => this.getImage()}>
+                            Myprofile
+                        </Text>
+                    </Row>
+                    <Row>
+
+                    </Row>
+                </Grid>
+
             </CommonPage>
         );
     }

@@ -6,12 +6,17 @@ import OMCode from '../components/OMCode';
 import { Actions } from 'react-native-router-flux'; // New code
 import CommonPage from "./CommonPage"
 import { Col, Row, Grid } from "react-native-easy-grid";
-
-export default class ProductDetail extends React.Component  {
+import CommonService from "../service/CommonService";
+import DetectService from '../components/DetectService';
+import StoreLocalService from '../service/StoreLocalService'
+export default class ProductDetail extends React.Component {
     constructor(props) {
         super(props);
         console.log("ProductDetail " + JSON.stringify(this.props.item));
-
+        this.state = {
+            user: null,
+            canBuy : false
+        };
 
     }
     componentWillReceiveProps(nextProps) {
@@ -19,11 +24,16 @@ export default class ProductDetail extends React.Component  {
     }
     componentWillMount() {
         Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
+        var self = this;
+        StoreLocalService.getUser().then((user) => {
+            console.log(self.props.item.owner.id + " " + user.id );
+            self.setState({ user: user, canBuy: self.props.item.owner.id == user.id });
+        });
     }
     buy() {
         Actions.paymentproduct({ item: this.props.item });
     }
-    history(){
+    history() {
         Actions.history({ item: this.props.item });
     }
     render() {
@@ -61,7 +71,7 @@ export default class ProductDetail extends React.Component  {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button large buttonStyle={styles.button} title="BUY" onPress={this.buy.bind(this)} />
+                                    <Button large disabledStyle={{backgroundColor:'transparent', opacity:0.3}} disabled={this.state.canBuy} buttonStyle={styles.button} title="BUY" onPress={this.buy.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>

@@ -7,7 +7,7 @@
       "APIKey":"AIzaSyCIFpX02yxf_azs1qwmn2feMDYUfQLqZDQ"
     },
     "service":{
-      "url":"http://localhost:5000"
+      "url":"http://192.168.1.10:5000"
     },
     "weather":{
         "url":"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&APPID={APIKey}&units=metric",

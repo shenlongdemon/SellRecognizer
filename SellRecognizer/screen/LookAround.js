@@ -38,7 +38,6 @@ export default class LookAround extends React.Component {
                     self.setState({ dataSource: ds.cloneWithRows(res.Data) });
                     console.log("CommonService.getItems state " + JSON.stringify(this.state));
                     self.setState({ pageNum: self.state.pageNum + 1 });
-
                 }
             });
     }

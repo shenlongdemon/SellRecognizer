@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, ImageResizeMode } from 'react-native';
+import { StyleSheet, View, Image, ImageResizeMode, ImageBackground } from 'react-native';
 import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { FormLabel, FormInput, Button, Text } from 'react-native-elements'
@@ -36,7 +36,14 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            <CommonPage styles={styles.container}>
+            <View style={styles.containerLogin}>
+                  <ImageBackground
+                 resizeMode='stretch'
+                 source={require("../assets/background.png")}
+                 style={styles.containerLogin}
+             >    
+           
+
                 <Grid>
                     <Row size={1} style={styles.container}>
                         <Image
@@ -107,12 +114,17 @@ export default class Login extends React.Component {
                     </Row>
 
                 </Grid>
-            </CommonPage>
+                </ImageBackground>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    containerLogin: {
+        flex: 1,
+       
+    },
     container: {
         flex: 1,
         alignItems: 'center',
