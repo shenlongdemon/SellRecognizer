@@ -3,6 +3,16 @@
     "sdkVersion": "25.0.0",
     "splash": {
       "image": "./assets/splash.png"
+    },
+    "name": "Ubuta",
+    "icon": "./assets/appicon.png",
+    "version": "1.0.0",
+    "slug": "com-sl-Ubuta",
+    "ios": {
+      "bundleIdentifier": "com.sl.Ubuta"
+    },
+    "android": {
+      "package": "com.sl.Ubuta"
     }
   }
 }
