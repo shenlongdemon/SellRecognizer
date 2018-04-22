@@ -40,6 +40,7 @@ const TabIcon = ({ title, focused }) => {
 export default class App extends React.Component {
     constructor() {
         super();
+        console.disableYellowBox = true;
         this.state = { logged: false, isLoaded: false };
     }
     componentWillMount() {

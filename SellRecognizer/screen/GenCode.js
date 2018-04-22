@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import { Actions } from 'react-native-router-flux'; // New code
 import QRCode from 'react-native-qrcode';
 import OMCode from '../components/OMCode';
+
 export default class GenCode extends React.Component {
     constructor(props) {
         super(props);

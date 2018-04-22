@@ -11,7 +11,9 @@ export default class ItemDetail extends React.Component {
     constructor(props) {
         super(props);
         console.log("ItemDetail " + JSON.stringify(this.props.item));
-
+        this.state = {
+            carSell : this.props.item.sellCode == "" 
+        };
 
     }
     componentWillReceiveProps(nextProps) {
@@ -61,7 +63,7 @@ export default class ItemDetail extends React.Component {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button large buttonStyle={styles.button} title="SELL" onPress={this.sell.bind(this)} />
+                                    <Button disabledStyle={{backgroundColor:'transparent', opacity:0.3}} disabled={ this.props.item.sellCode != "" } large buttonStyle={styles.button}  title="SELL" onPress={this.sell.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>

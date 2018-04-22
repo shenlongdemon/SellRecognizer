@@ -18,6 +18,7 @@ export default class StoreLocalService extends React.Component {
         var userStr = await AsyncStorage.getItem("user");
         return JSON.parse(userStr);
     }
+   
     static clearAll(){
         AsyncStorage.clear();
     }

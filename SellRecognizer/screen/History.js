@@ -8,22 +8,40 @@ import StoreLocalService from "../service/StoreLocalService";
 import Item from "./part/Item";
 import FindDocumentButton from "./part/FindDocumentButton";
 import HistoryItem from "./part/HistoryItem";
+import _ from "underscore";
 
 export default class History extends React.Component {
     constructor(props) {
         super(props)
+        var histories = this.props.item.section.history;
+
+
+        _.each(histories, function (item, index) {
+            if (index == 0) {
+                item.index = 0;
+            }
+            else {
+                item.index = -1;
+            }
+        });
+
+        if (this.props.item.buyerCode != "") {
+            var buyer = this.props.item.buyer;
+            buyer.index = 1;
+            histories.push(this.props.item.buyer);
+        }
+        histories = histories.reverse();
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
-            dataSource: ds.cloneWithRows([this.props.item.section.history]),
+            dataSource: ds.cloneWithRows(histories),
             user: {}
         };
     }
     componentDidMount() {
         var self = this;
         StoreLocalService.getUser().then(function (user) {
-            self.setState({ user: user });            
+            self.setState({ user: user });
         });
-    
     }
     render() {
         return (
@@ -34,8 +52,8 @@ export default class History extends React.Component {
                             style={{ backgroundColor: "#e6e6e6" }}
                             enableEmptySections={true}
                             dataSource={this.state.dataSource}
-                            renderRow={(item) =>
-                                <HistoryItem item={item} style={{ height: 130 }}></HistoryItem>
+                            renderRow={(user) =>
+                                <HistoryItem user={user} style={{ height: 130 }}></HistoryItem>
                             }
                         />
                     </Row>

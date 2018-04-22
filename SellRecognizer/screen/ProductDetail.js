@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, ImageBackground } from 'react-native';
+import { StyleSheet, View, Image, ImageBackground, Alert } from 'react-native';
 import { FormLabel, FormInput, Button, Text } from 'react-native-elements'
 import QRCode from 'react-native-qrcode';
 import OMCode from '../components/OMCode';
@@ -12,10 +12,11 @@ import StoreLocalService from '../service/StoreLocalService'
 export default class ProductDetail extends React.Component {
     constructor(props) {
         super(props);
-        console.log("ProductDetail " + JSON.stringify(this.props.item));
+        //console.log("ProductDetail " + JSON.stringify(this.props.item));
         this.state = {
             user: null,
-            canBuy : false
+            canBuy : false,
+            buyTittle : "BUY"
         };
 
     }
@@ -27,16 +28,47 @@ export default class ProductDetail extends React.Component {
         var self = this;
         StoreLocalService.getUser().then((user) => {
             console.log(self.props.item.owner.id + " " + user.id );
-            self.setState({ user: user, canBuy: self.props.item.owner.id == user.id });
+            
+            var buy = self.props.item.buyer == undefined ? "BUY" : ( self.props.item.buyer.id == user.id ? "CONFIRM" : "BUY");
+            self.setState({ user: user, canBuy: self.props.item.owner.id == user.id , buyTittle: buy});
+            console.log("ProductDetail " + JSON.stringify(self.state));
+
+        });
+    }
+    confirmReceiveItem(){
+        var self = this;
+        CommonService.confirmReceiveItem(self.props.item.id).then((res) => {
+            console.log("CommonService.confirmReceiveItem " + JSON.stringify(res));
+            if(res.Status == 1){
+
+            }
         });
     }
     buy() {
+        var self = this;
+        if (this.state.buyTittle == "CONFIRM"){
+        Alert.alert(
+            'Confirm',
+            'You received pruduct and confirm ?',
+            [
+              {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'Yes', onPress: () => self.confirmReceiveItem()},
+            ],
+            { cancelable: false }
+          )
+        }
+        else {
+
+
+
         Actions.paymentproduct({ item: this.props.item });
+        }
     }
     history() {
         Actions.history({ item: this.props.item });
     }
     render() {
+        
         return (
             <CommonPage style={styles.container}>
                 <Grid>
@@ -71,7 +103,7 @@ export default class ProductDetail extends React.Component {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button large disabledStyle={{backgroundColor:'transparent', opacity:0.3}} disabled={this.state.canBuy} buttonStyle={styles.button} title="BUY" onPress={this.buy.bind(this)} />
+                                    <Button large disabledStyle={{backgroundColor:'transparent', opacity:0.3}} disabled={this.state.canBuy} buttonStyle={styles.button} title={this.state.buyTittle} onPress={this.buy.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>

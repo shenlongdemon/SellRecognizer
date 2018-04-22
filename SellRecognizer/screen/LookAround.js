@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ListView, Image } from 'react-native';
+import { StyleSheet,  View, ListView, Image,TouchableOpacity } from 'react-native';
+import { FormLabel, FormInput, Button, Text, Icon } from 'react-native-elements'
+
 import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from "../service/CommonService";
@@ -7,6 +9,7 @@ import CommonPage from "./CommonPage"
 import StoreLocalService from "../service/StoreLocalService";
 import Product from "./part/Product";
 import FindDocumentButton from "./part/FindDocumentButton";
+import Bluetooth from 'react-native-bluetooth-manager';
 
 
 export default class LookAround extends React.Component {
@@ -16,17 +19,68 @@ export default class LookAround extends React.Component {
         this.state = {
             dataSource: ds.cloneWithRows([]),
             user: {},
-            pageNum: 1
+            pageNum: 1,
+            count: 1
         };
     }
     componentDidMount() {
         var self = this;
         StoreLocalService.getUser().then(function (user) {
             self.setState({ user: user });
-            self.loadItems();
+            self.scanBluetooth();
         });
 
 
+    }
+    componentWillMount(){
+        Actions.refresh({ right: this.renderRefreshButton });
+    }
+    renderRefreshButton = () => {
+        return(
+            <TouchableOpacity onPress={() => this.refresh() } >
+                <Icon name="sync" size={30} color='white' />
+            </TouchableOpacity>
+        );
+    };
+
+    refresh = () => {
+        this.scanBluetooth();
+    }
+    loadItemsByBluetoothNames(names) {
+        var self = this;
+
+        names.push('52141318121823147242102312142772');
+        CommonService.getItemsByCodes(names).then((res) => {
+            if (res.Status == 1) {
+                const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+                self.setState({ dataSource: ds.cloneWithRows(res.Data) });
+                self.setState({ count: res.Data.length });
+            }
+            else {
+                self.setState({ count: 0 });
+            }
+        });
+    }
+    scanBluetooth() {
+        console.log("scanBluetooth");
+        var self = this;
+        var names = [];
+        const discoverOptions = {
+            uuids: [] // list of BLE service uuids to filter devices during scan
+        };
+
+        const onDeviceFound = device => {
+            const { id, name } = device;
+            console.log("BT device + " + JSON.stringify(device));
+            names.push(device.name);
+        };
+        console.log("Bluetooth start");
+        Bluetooth.startScanWithDiscovery(discoverOptions, onDeviceFound)
+            .then(scan => scan.stopAfter(9000)) // automatically stop scan after 9000ms
+            .then(stoppedOnTime => {
+                self.loadItemsByBluetoothNames(names);
+                // true if scan ran for full duration, false if stopped before
+            });
     }
     loadItems() {
         var self = this;

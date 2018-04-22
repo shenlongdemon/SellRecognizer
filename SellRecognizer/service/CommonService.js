@@ -73,4 +73,21 @@ export default class CommonService extends React.Component {
         var url = config.service.url + "/api/sellrecognizer/getItemByQRCode?qrcode=" + qrcode;
         return WebApi.request("GET", url, null, null);
     }
+    static updateProfile(id, user){
+        console.log("CommonService updateProfile " + id + " " + JSON.stringify(user));
+        var data = { id: id, user: user };
+        var url = config.service.url + "/api/sellrecognizer/updateUser";
+        return WebApi.request("POST", url, data, null);
+    }
+    static getItemsByCodes(names){
+        console.log("CommonService getItemsByCodes " + names.length);
+        var url = config.service.url + "/api/sellrecognizer/getItemsByCodes";
+        return WebApi.request("POST", url, names, null);
+    }
+    static confirmReceiveItem(id){
+        console.log("CommonService confirmReceiveItem " + id);
+        var url = config.service.url + "/api/sellrecognizer/confirmReceiveItem?id="+id;
+        return WebApi.request("GET", url, null, null);
+    }
+   
 }

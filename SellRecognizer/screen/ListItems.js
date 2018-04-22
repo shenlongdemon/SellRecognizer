@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ListView, Image } from 'react-native';
+import { StyleSheet,  View, ListView, Image, TouchableOpacity } from 'react-native';
+import { FormLabel, FormInput, Button, Text, Icon } from 'react-native-elements'
+
 import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from "../service/CommonService";
@@ -27,6 +29,20 @@ export default class ListItems extends React.Component {
         });
 
 
+    }
+    componentWillMount(){
+        Actions.refresh({ right: this.renderRefreshButton });
+    }
+    renderRefreshButton = () => {
+        return(
+            <TouchableOpacity onPress={() => this.refresh() } >
+                <Icon name="sync" size={30} color='white' />
+            </TouchableOpacity>
+        );
+    };
+
+    refresh = () => {
+        this.loadItems();
     }
     loadItems() {
         var self = this;
@@ -58,6 +74,18 @@ export default class ListItems extends React.Component {
                     </Row>
 
                 </Grid>
+                                        <Icon 
+                                            reverses
+                                            iconStyle={styles.addButton}
+                                            name='plus-circle'
+                                            type='font-awesome'
+                                            color='#eda751'
+                                            size={50}
+                                            onPress={() => Actions.filliteminfor()}
+                                        />
+
+
+               
                 {/* <FindDocumentButton style={styles.findbutton} /> */}
             </CommonPage>
         );
@@ -68,12 +96,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    findbutton: {
+    addButton: {
         position: 'absolute',
-        width: "100%",
-        height: 60,
-        alignItems: 'center',
-        justifyContent: 'center',
+       
         bottom: 0,
+        right: 10,
     }
 });

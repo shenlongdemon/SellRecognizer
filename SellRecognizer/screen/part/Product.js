@@ -17,7 +17,7 @@ export default class Product extends React.Component {
                         <Col style={styles.center} >
                             <Image
                                 style={{ width: '80%', height: '80%' }}
-                                source={{ uri: this.props.item.image.link }}
+                                source={{ uri: this.props.item.image }}
                                 resizeMode="contain"
                             />
                         </Col>
@@ -31,11 +31,7 @@ export default class Product extends React.Component {
                                 <Row size={1}><Text>{this.props.item.owner.firstName}</Text></Row>
                                 <Row size={1}>
 
-                                    {
-                                        (this.props.item.sellCode != undefined && this.props.item.sellCode != "")
-                                            ? <Text style={{ color: 'green' }} >Published</Text>
-                                            : <Text></Text>
-                                    }
+                                  
 
                                 </Row>
                             </Grid>

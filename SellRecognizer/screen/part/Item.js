@@ -17,7 +17,7 @@ export default class Item extends React.Component {
                         <Col style={styles.center} >
                             <Image
                                 style={{ width: '80%', height: '80%' }}
-                                source={{ uri: this.props.item.image.link }}
+                                source={{ uri: this.props.item.image }}
                                 resizeMode="contain"
                             />
                         </Col>
@@ -32,9 +32,13 @@ export default class Item extends React.Component {
                                 <Row size={1}>
 
                                     {
-                                        (this.props.item.sellCode != undefined && this.props.item.sellCode != "")
-                                            ? <Text style={{ color: 'green' }} >Published</Text>
-                                            : <Text></Text>
+                                        (this.props.item.buyerCode != undefined && this.props.item.buyerCode != "")
+                                        ? <Text style={{ color: 'orange' }} >Buyed</Text>
+                                        :  (this.props.item.sellCode != undefined && this.props.item.sellCode != "")
+                                        ? <Text style={{ color: 'green' }} >Published</Text>
+                                        : <Text></Text>
+
+                                       
                                     }
 
                                 </Row>
