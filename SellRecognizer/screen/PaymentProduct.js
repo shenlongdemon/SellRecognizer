@@ -33,7 +33,7 @@ export default class PaymentProduct extends React.Component {
         console.log("BuyItem payment" + JSON.stringify(this.state));
         if (this.state.user) {
             CommonService.payment(this.props.item.id, this.state.user).then(function (res) {
-                
+                Actions.reset('mainboard');
             });
         }
         else {

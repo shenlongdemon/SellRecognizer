@@ -40,7 +40,7 @@ export default class ProductDetail extends React.Component {
         CommonService.confirmReceiveItem(self.props.item.id).then((res) => {
             console.log("CommonService.confirmReceiveItem " + JSON.stringify(res));
             if(res.Status == 1){
-
+                Actions.reset('mainboard');
             }
         });
     }
