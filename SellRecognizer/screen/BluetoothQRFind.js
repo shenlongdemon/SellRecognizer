@@ -12,6 +12,7 @@ import { FormLabel, FormInput, Button, Text } from 'react-native-elements'
 
 import FindDocumentButton from "./part/FindDocumentButton";
 import { BarCodeScanner, Permissions } from 'expo';
+import Bluetooth from 'react-native-bluetooth-manager';
 
 export default class BluetoothQRFind extends React.Component {
 
@@ -30,6 +31,20 @@ export default class BluetoothQRFind extends React.Component {
     async componentWillMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
+        const discoverOptions = {
+            uuids: [] // list of BLE service uuids to filter devices during scan
+          };
+          
+          const onDeviceFound = device => {
+            const {id, name} = device;
+            console.log("BT device + " + JSON.stringify(device));
+          };
+          console.log("Bluetooth start");
+          Bluetooth.startScanWithDiscovery(discoverOptions, onDeviceFound)
+            .then(scan => scan.stopAfter(9000)) // automatically stop scan after 9000ms
+            .then(stoppedOnTime => {
+              // true if scan ran for full duration, false if stopped before
+            });
     }
     scanQR() {
         this.setState({ turnQRCodeScanner: !this.state.turnQRCodeScanner });
