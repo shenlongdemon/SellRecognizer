@@ -68,7 +68,7 @@ export default class BluetoothQRFind extends React.Component {
                         }
                     }
                     else {
-    
+                        alert("Invalid QRCode or Invalid Item");
                     }
                     self.setState({ isProcessQRCode: false });
                     self.setState({ turnQRCodeScanner: false });

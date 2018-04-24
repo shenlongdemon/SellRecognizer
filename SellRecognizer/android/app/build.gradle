@@ -100,6 +100,8 @@ preBuild.dependsOn exponentPrebuildStep
 
 
 dependencies {
+    compile project(':react-native-web-api')
+    compile project(':react-native-svg')
     compile project(':react-native-bluetooth-manager')
   compile fileTree(dir: 'libs', include: ['*.jar'])
 

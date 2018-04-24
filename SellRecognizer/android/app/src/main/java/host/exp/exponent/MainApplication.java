@@ -8,6 +8,8 @@ import java.util.List;
 
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
+import sl.lib.webapi.SLWebApiPackage;
+import com.horcrux.svg.SvgPackage;
 import com.sogilis.ReactNativeBluetooth.ReactNativeBluetoothPackage;
 
 public class MainApplication extends ExpoApplication {
@@ -25,6 +27,8 @@ public class MainApplication extends ExpoApplication {
 
         // Needed for `react-native link`
         // new MainReactPackage(),
+            new SLWebApiPackage(),
+            new SvgPackage(),
             new ReactNativeBluetoothPackage()
     );
   }

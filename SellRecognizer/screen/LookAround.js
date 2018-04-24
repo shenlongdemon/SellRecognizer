@@ -50,7 +50,7 @@ export default class LookAround extends React.Component {
         var self = this;
 
         names.push('52141318121823147242102312142772');
-        CommonService.getItemsByCodes(names).then((res) => {
+        CommonService.getProductsByCodes(names).then((res) => {
             if (res.Status == 1) {
                 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                 self.setState({ dataSource: ds.cloneWithRows(res.Data) });

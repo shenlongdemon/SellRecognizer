@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3B1D854F208B34DD009348C2 /* CoreBluetoothSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D854C208B3103009348C2 /* CoreBluetoothSwift.framework */; };
 		3B1D8550208B34DD009348C2 /* CoreBluetoothSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D854C208B3103009348C2 /* CoreBluetoothSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8ED0ED51B9CA4D12AD3B35B0 /* libSLWebApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3ACA50F3EA14854B040A224 /* libSLWebApi.a */; };
 		B501732B1DC01252003445D9 /* EXShell.plist in Resources */ = {isa = PBXBuildFile; fileRef = B501732A1DC01252003445D9 /* EXShell.plist */; };
 		B56386491DB9693800A0598C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B56386481DB9693800A0598C /* AppDelegate.m */; };
 		B56386511DB9693800A0598C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B56386501DB9693800A0598C /* Assets.xcassets */; };
@@ -47,6 +48,13 @@
 			remoteGlobalIDString = 3308EBB61D79B97000007DE7;
 			remoteInfo = CoreBluetoothSwift;
 		};
+		3B8DD5E9208EE187006D8045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C8335EB51C9644379BD9FE28 /* SLWebApi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = SLWebApi;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +92,8 @@
 		B5DB047E1F3A684600E91581 /* shell-app-manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "shell-app-manifest.json"; sourceTree = "<group>"; };
 		B5DB047F1F3A684600E91581 /* shell-app.bundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "shell-app.bundle"; sourceTree = "<group>"; };
 		C4A88D15726AD99E8A257BC7 /* libPods-ubuta.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ubuta.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8335EB51C9644379BD9FE28 /* SLWebApi.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SLWebApi.xcodeproj; path = "../node_modules/react-native-web-api/ios/SLWebApi.xcodeproj"; sourceTree = "<group>"; };
+		E3ACA50F3EA14854B040A224 /* libSLWebApi.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSLWebApi.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +104,7 @@
 				EBB8117C1BFA0514F79CAF74 /* libPods-ubuta.a in Frameworks */,
 				D49EF2CE3B25486FB0D45ADD /* libReactNativeBluetooth.a in Frameworks */,
 				3B1D854F208B34DD009348C2 /* CoreBluetoothSwift.framework in Frameworks */,
+				8ED0ED51B9CA4D12AD3B35B0 /* libSLWebApi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				907FC9F96A5A48BF96FA9679 /* ReactNativeBluetooth.xcodeproj */,
+				C8335EB51C9644379BD9FE28 /* SLWebApi.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -120,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				59D557E840814E0EA89848E9 /* libReactNativeBluetooth.a */,
+				E3ACA50F3EA14854B040A224 /* libSLWebApi.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -129,6 +142,14 @@
 			children = (
 				3B1D854C208B3103009348C2 /* CoreBluetoothSwift.framework */,
 				3B1D854E208B3103009348C2 /* libReactNativeBluetooth.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B8DD5E5208EE187006D8045 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B8DD5EA208EE187006D8045 /* libSLWebApi.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,6 +270,10 @@
 					ProductGroup = 3B1D8547208B3103009348C2 /* Products */;
 					ProjectRef = 907FC9F96A5A48BF96FA9679 /* ReactNativeBluetooth.xcodeproj */;
 				},
+				{
+					ProductGroup = 3B8DD5E5208EE187006D8045 /* Products */;
+					ProjectRef = C8335EB51C9644379BD9FE28 /* SLWebApi.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -270,6 +295,13 @@
 			fileType = archive.ar;
 			path = libReactNativeBluetooth.a;
 			remoteRef = 3B1D854D208B3103009348C2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B8DD5EA208EE187006D8045 /* libSLWebApi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSLWebApi.a;
+			remoteRef = 3B8DD5E9208EE187006D8045 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -557,6 +589,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sl.Ubuta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -611,6 +644,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sl.Ubuta;
