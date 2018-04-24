@@ -10,7 +10,6 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import StoreLocalService from "../service/StoreLocalService";
 import CommonService from "../service/CommonService";
 import { ImagePicker } from 'expo';
-import ImgToBase64 from 'react-native-image-base64';
 export default class MyProfile extends React.Component {
     constructor(props) {
         super(props);
