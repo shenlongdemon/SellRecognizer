@@ -155,7 +155,7 @@ export default class BluetoothQRFind extends React.Component {
 
 
                 </ImageBackground>
-                {/* <FindDocumentButton style={styles.findbutton} /> */}
+                <FindDocumentButton style={styles.findbutton} />
             </CommonPage>
         );
     }

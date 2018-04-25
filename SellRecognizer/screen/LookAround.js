@@ -38,7 +38,7 @@ export default class LookAround extends React.Component {
     renderRefreshButton = () => {
         return(
             <TouchableOpacity onPress={() => this.refresh() } >
-                <Icon name="sync" size={30} color='white' />
+                <Icon name="sync" size={25} color='white' />
             </TouchableOpacity>
         );
     };

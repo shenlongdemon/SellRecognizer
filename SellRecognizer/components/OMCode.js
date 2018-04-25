@@ -26,7 +26,6 @@ export default class OMCode extends React.Component {
         return (
 
             <View style={styles.container}>
-                <Text>{this.props.text}</Text>
                 <Svg height={size} width={size}>
                     <Circle
                         cx={r}

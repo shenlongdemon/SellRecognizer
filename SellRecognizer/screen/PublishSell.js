@@ -20,21 +20,17 @@ export default class PublishSell extends React.Component {
         };
     }
     componentDidMount() {
-
         var self = this;
-        StoreLocalService.getUser().then((user) => {
-            DetectService.getDeviceInfo().then((data) => {
-                user.position = data.position;
-                user.weather = data.weather;
-                self.setState({ user: user });
-                console.log("PublishSell componentDidMount user = " + JSON.stringify(self.state.user));
-            }).catch((ex) => {
-                console.log("" + ex);
-            });
-        }).catch((ex) => {
-            console.log("" + ex);
-        })
-
+        CommonService.getUserInfo().then((user) =>{
+            self.setState({ user: user });
+        });
+    }
+    canSell(){
+        var can = true;
+        if (this.state.item.sellCode.length > 0){
+            can = false;
+        }
+        return can;
     }
     publishSell() {
         console.log("PublishSell publishSell " + JSON.stringify(this.state));
@@ -42,9 +38,8 @@ export default class PublishSell extends React.Component {
         var self = this;
         CommonService.publishSell(self.state.item.id, self.state.user).then((res) => {
             console.log("PublishSell publishSell done with res " + JSON.stringify(res));
-
-            if (res.Data == 1) {
-                self.state.item = res.Data;
+            if (res.Status == 1) {
+                Actions.gencode({code:res.Data.sellCode});
             }
         });
     }
@@ -58,7 +53,7 @@ export default class PublishSell extends React.Component {
                     <Row >
                         <Image
                             style={{ height: "100%", width: "100%" }}
-                            source={{ uri: this.state.item.image.link }}
+                            source={{ uri: this.state.item.image }}
                             resizeMode="contain"
                         />
                     </Row>
@@ -80,7 +75,7 @@ export default class PublishSell extends React.Component {
 
                     <Row style={styles.container}>
                         {
-                            (this.state.item.sellCode == undefined || this.state.item.sellCode == "") ?
+                            (this.canSell()) ?
                                 <Button large buttonStyle={styles.button} title="Generate Code" onPress={this.publishSell.bind(this)} />
                                 : <View />
                         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,  View, ListView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ListView, Image, TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput, Button, Text, Icon } from 'react-native-elements'
 
 import { Actions } from 'react-native-router-flux'; // New code
@@ -30,13 +30,13 @@ export default class ListItems extends React.Component {
 
 
     }
-    componentWillMount(){
+    componentWillMount() {
         Actions.refresh({ right: this.renderRefreshButton });
     }
     renderRefreshButton = () => {
-        return(
-            <TouchableOpacity onPress={() => this.refresh() } >
-                <Icon name="sync" size={30} color='white' />
+        return (
+            <TouchableOpacity onPress={() => this.refresh()} >
+                <Icon name="sync"  size={25} color='white' />
             </TouchableOpacity>
         );
     };
@@ -53,7 +53,7 @@ export default class ListItems extends React.Component {
                     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                     self.setState({ dataSource: ds.cloneWithRows(res.Data) });
                     console.log("CommonService.getItems state " + JSON.stringify(this.state));
-                    self.setState({pageNum: self.state.pageNum + 1});
+                    self.setState({ pageNum: self.state.pageNum + 1 });
 
                 }
             });
@@ -74,19 +74,15 @@ export default class ListItems extends React.Component {
                     </Row>
 
                 </Grid>
-                                        <Icon 
-                                            reverses
-                                            iconStyle={styles.addButton}
-                                            name='plus-circle'
-                                            type='font-awesome'
-                                            color='#eda751'
-                                            size={50}
-                                            onPress={() => Actions.filliteminfor()}
-                                        />
-
-
-               
-                {/* <FindDocumentButton style={styles.findbutton} /> */}
+                <Icon
+                    reverses
+                    iconStyle={styles.addButton}
+                    name='plus-circle'
+                    type='font-awesome'
+                    color='#eda751'
+                    size={50}
+                    onPress={() => Actions.filliteminfor()}
+                />
             </CommonPage>
         );
     }
@@ -98,8 +94,8 @@ const styles = StyleSheet.create({
     },
     addButton: {
         position: 'absolute',
-       
-        bottom: 0,
+
+        bottom: 5,
         right: 10,
     }
 });

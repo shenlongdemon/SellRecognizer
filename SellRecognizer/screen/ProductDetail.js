@@ -15,8 +15,8 @@ export default class ProductDetail extends React.Component {
         //console.log("ProductDetail " + JSON.stringify(this.props.item));
         this.state = {
             user: null,
-            canBuy : false,
-            buyTittle : "BUY"
+            canBuy: false,
+            buyTittle: "BUY"
         };
 
     }
@@ -24,77 +24,64 @@ export default class ProductDetail extends React.Component {
         Actions.refresh({ title: nextProps.item.name + " " + nextProps.item.category.value })
     }
     componentWillMount() {
-        Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
         var self = this;
         StoreLocalService.getUser().then((user) => {
-            console.log(self.props.item.owner.id + " " + user.id );
-            
-            var buy = self.props.item.buyer == undefined ? "BUY" : ( self.props.item.buyer.id == user.id ? "CONFIRM" : "BUY");
-            self.setState({ user: user, canBuy: self.props.item.owner.id == user.id , buyTittle: buy});
+            console.log(self.props.item.owner.id + " " + user.id);
+
+            var buy = self.props.item.buyer == undefined ? "BUY" : (self.props.item.buyer.id == user.id ? "CONFIRM" : "BUY");
+            self.setState({ user: user, canBuy: self.props.item.owner.id == user.id, buyTittle: buy });
             console.log("ProductDetail " + JSON.stringify(self.state));
 
         });
     }
-    confirmReceiveItem(){
+    confirmReceiveItem() {
         var self = this;
         CommonService.confirmReceiveItem(self.props.item.id).then((res) => {
             console.log("CommonService.confirmReceiveItem " + JSON.stringify(res));
-            if(res.Status == 1){
+            if (res.Status == 1) {
                 Actions.reset('mainboard');
             }
         });
     }
     buy() {
         var self = this;
-        if (this.state.buyTittle == "CONFIRM"){
-        Alert.alert(
-            'Confirm',
-            'You received pruduct and confirm ?',
-            [
-              {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-              {text: 'Yes', onPress: () => self.confirmReceiveItem()},
-            ],
-            { cancelable: false }
-          )
+        if (this.state.buyTittle == "CONFIRM") {
+            Alert.alert(
+                'Confirm',
+                'You received pruduct and confirm ?',
+                [
+                    { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                    { text: 'Yes', onPress: () => self.confirmReceiveItem() },
+                ],
+                { cancelable: false }
+            )
         }
         else {
-
-
-
-        Actions.paymentproduct({ item: this.props.item });
+            Actions.paymentproduct({ item: this.props.item });
         }
     }
     history() {
         Actions.history({ item: this.props.item });
     }
     render() {
-        
+
         return (
             <CommonPage style={styles.container}>
                 <Grid>
                     <Row style={{ height: 50 }}>
 
                     </Row>
-                    <Row >
-                        <Image
-                            style={{ height: "100%", width: "100%" }}
-                            source={{ uri: this.props.item.image.link }}
-                            resizeMode="contain"
-                        />
+                    <Row size={4}>
+                        <ItemInfo item={this.props.item} />
                     </Row>
-                    <Row >
 
-                    </Row>
-                    <Row style={{ alignItems: 'center', justifyContent: 'center' }} >
+                    <Row size={2} style={{ alignItems: 'center', justifyContent: 'center' }} >
                         <QRCode
-                            value={this.props.item.code}
-                            //size={100}
+                            value={this.props.item.sellCode}
                             bgColor='black'
                             fgColor='white' />
                     </Row>
-                    <Row >
 
-                    </Row>
 
                     <Row style={{ height: 50 }}>
                         <ImageBackground
@@ -103,7 +90,7 @@ export default class ProductDetail extends React.Component {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button large disabledStyle={{backgroundColor:'transparent', opacity:0.3}} disabled={this.state.canBuy} buttonStyle={styles.button} title={this.state.buyTittle} onPress={this.buy.bind(this)} />
+                                    <Button large disabledStyle={{ backgroundColor: 'transparent', opacity: 0.3 }} disabled={this.state.canBuy} buttonStyle={styles.button} title={this.state.buyTittle} onPress={this.buy.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>

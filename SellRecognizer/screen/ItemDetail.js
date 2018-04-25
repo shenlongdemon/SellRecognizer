@@ -6,7 +6,7 @@ import OMCode from '../components/OMCode';
 import { Actions } from 'react-native-router-flux'; // New code
 import CommonPage from "./CommonPage"
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import ItemInfo from "./part/ItemInfo";
 export default class ItemDetail extends React.Component {
     constructor(props) {
         super(props);
@@ -32,29 +32,19 @@ export default class ItemDetail extends React.Component {
         return (
             <CommonPage style={styles.container}>
                 <Grid>
-                    <Row style={{ height: 50 }}>
+                    <Row style={{ height: 30 }}>
 
                     </Row>
-                    <Row >
-                        <Image
-                            style={{ height: "100%", width: "100%" }}
-                            source={{ uri: this.props.item.image.link }}
-                            resizeMode="contain"
-                        />
+                    <Row size={4}>
+                        <ItemInfo item={this.props.item} />
                     </Row>
-                    <Row >
-
-                    </Row>
-                    <Row style={{ alignItems: 'center', justifyContent: 'center' }} >
+                    
+                    <Row size={2} style={{ alignItems: 'center', justifyContent: 'center' }} >
                         <QRCode
                             value={this.props.item.code}
-                            //size={100}
                             bgColor='black'
                             fgColor='white' />
-                    </Row>
-                    <Row >
-
-                    </Row>
+                    </Row>                  
 
                     <Row style={{ height: 50 }}>
                         <ImageBackground

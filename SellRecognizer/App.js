@@ -99,7 +99,7 @@ export default class App extends React.Component {
                             >
                                 <Scene key="bluetoothqrfind"
                                     component={BluetoothQRFind}
-                                    title="CheGo"
+                                    title="Ubuta"
                                     initial
                                     icon={TabIcon}
                                     tabBarLabel="TAB #1"
@@ -177,7 +177,7 @@ export default class App extends React.Component {
                         <Scene key="findproduct"
                             component={FindProduct}
                             direction="vertical"
-                            title="All Products Around"
+                            title="All Products"
                         />
 
 

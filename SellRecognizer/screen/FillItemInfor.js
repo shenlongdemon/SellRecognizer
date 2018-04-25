@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet,  View, Image, Geolocation, TextInput, TouchableOpacity } from 'react-native';
-import { FormLabel, FormInput, Button, Text } from 'react-native-elements'
+import { StyleSheet, View, Image, Geolocation, TouchableOpacity } from 'react-native';
+import { FormLabel, FormValidationMessage, FormInput, Button, Text,Icon } from 'react-native-elements'
 
 import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -22,20 +22,12 @@ export default class FillItemInfor extends React.Component {
         this.loadCategories();
 
     }
-    componentWillMount(){
+    componentWillMount() {
         var self = this;
-        StoreLocalService.getUser().then((user) => {
-            DetectService.getDeviceInfo().then((data) => {
-                user.position = data.position;
-                user.weather = data.weather;
-                self.setState({ user: user });
-                console.log("PublishSell componentDidMount user = " + JSON.stringify(self.state.user));
-            }).catch((ex) => {
-                console.log("" + ex);
-            });
-        }).catch((ex) => {
-            console.log("" + ex);
-        })
+
+        CommonService.getUserInfo().then((user) => {
+            self.setState({ user: user });
+        });
     }
     loadCategories() {
         var self = this;
@@ -71,74 +63,112 @@ export default class FillItemInfor extends React.Component {
         console.log("FillItemInfor getItem " + JSON.stringify(item));
         return item;
     }
-    submit(){
+    submit() {
         var item = this.getItem();
         item.owner = this.state.user;
         CommonService.insertItem(item)
             .then(function (res) {
                 console.log("MakeOwner.insertItem res " + JSON.stringify(res));
-                Actions.gencode({ item: res.Data });
+                Actions.gencode({ code: res.Data.code });
             });
+    }
+    search(){
+        Actions.searchimageitem();
     }
     render() {
         return (
             <CommonPage>
 
                 <Grid>
-                    <Row style={{ height: 100 }}>
-                        <TouchableOpacity activeOpacity={.5} onPress={() => this.selectImage()}>
-                            <Image
-                                style={{ height: 100, width: 100 }}
-                                source={(this.state.image != undefined && this.state.image != "") ? { uri: this.state.image } :
-                                    require('../assets/library.png')
+                    <Row style={{
+                        height: 200
+                    }} >
+                        <Col size={1} ></Col>
+                        <Col size={5} style={{
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <TouchableOpacity activeOpacity={.5} onPress={() => this.selectImage()}>
+                                <Image
+                                    style={{ height: 200, width: 200 }}
+                                    source={(this.state.image != undefined && this.state.image != "") ? { uri: this.state.image } :
+                                        require('../assets/library.png')
 
-                                }
-                                resizeMode="contain"
-                            />
-                        </TouchableOpacity>
+                                    }
+                                    resizeMode="contain"
+                                />
+                            </TouchableOpacity>
+                        </Col>
+                        <Col size={1}>
+                            <Icon name='search'
+                                type='font-awesome'
+                                color='#eda751'
+                                onPress={() => this.search.bind(this)} />
+                        </Col>
+
                     </Row>
-                    <Row>
 
-                        <Grid>
-                            <Row >
-                                <Dropdown containerStyle={{ flex: 1, height: 30 }}
-                                    label='Select category'
-                                    data={this.state.categories}
-                                    onChangeText={(value, index, data) => this.setState({ category: data[index] })}
-                                />
-                            </Row>
-                            <Row >
-                                <Text>Name</Text>
-                                <TextInput
-                                    style={{ flex: 1, height: 30, borderColor: 'gray', borderWidth: 1 }}
-                                    onChangeText={(text) => this.setState({ name: text })}
-                                    value={this.state.name}
-                                />
-                            </Row>
-                            <Row >
-                                <Text>Price</Text>
-                                <TextInput
-                                    style={{ flex: 1, height: 30, borderColor: 'gray', borderWidth: 1 }}
-                                    onChangeText={(text) => this.setState({ price: text })}
-                                    value={this.state.price}
-                                />
-                            </Row>
-                            <Row >
-                                <Text>Description</Text>
-                                <TextInput editable={true}
-                                    multiline={true}
-                                    numberOfLines={4}
-                                    style={{ flex: 1, height: 120, borderColor: 'gray', borderWidth: 1 }}
-                                    onChangeText={(text) => this.setState({ description: text })}
-                                    value={this.state.description}
-                                />
-                            </Row>
-
-                        </Grid>
+                    <Row style={{ height: 70 }} >
+                        <Col style={{ width: 20 }}></Col>
+                        <Col>
+                            <Dropdown containerStyle={{ height: "100%", width: "80%" }}
+                                label='Select category'
+                                data={this.state.categories}
+                                onChangeText={(value, index, data) => this.setState({ category: data[index] })}
+                            />
+                        </Col>
 
                     </Row>
                     <Row style={{ height: 50 }}>
-                        <Button buttonStyle={styles.buttonLogin} title="Login" onPress={this.submit.bind(this)} backgroundColor="#eda751" />
+                        <FormInput
+                            style={[styles.formInputStyle]}
+                            containerStyle={styles.formInputContainerStyle}
+                            onChangeText={(text) => this.setState({ name: text })}
+                            value={this.state.name}
+                            placeholderTextColor='gray'
+                            placeholder='Name of item'
+                        />
+                        <FormValidationMessage>{'Fill name'}</FormValidationMessage>
+                    </Row>
+                    <Row style={{ height: 50 }}>
+                        <FormInput
+                            style={[styles.formInputStyle]}
+                            keyboardType='numeric'
+                            containerStyle={styles.formInputContainerStyle}
+                            onChangeText={(text) => this.setState({ price: text })}
+                            value={this.state.price}
+                            placeholder='Make price'
+                            placeholderTextColor='gray'
+
+                        />
+                        <FormValidationMessage>{'Fill price'}</FormValidationMessage>
+
+                    </Row>
+                    <Row >
+                        <FormInput
+                            numberOfLines={4}
+                            multiline={true}
+                            containerStyle={{ height: "100%", width:'90%', borderColor: 'gray', borderWidth: 1 }}
+                            onChangeText={(text) => this.setState({ price: text })}
+                            value={this.state.description}
+                            onChangeText={(text) => this.setState({ description: text })}
+                            placeholder="Description here"
+                            placeholderTextColor='gray'
+
+                        />
+                    </Row>
+
+
+                    <Row style={{
+                        height: 70, alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <Col sixe={2}></Col>
+                        <Col sixe={6}>
+                            <Button large style={{ width: "100%" }} buttonStyle={styles.buttonLogin} title="Done" onPress={this.submit.bind(this)} backgroundColor="#eda751" />
+
+                        </Col>
+                        <Col sixe={2}></Col>
 
                     </Row>
                 </Grid>
@@ -149,7 +179,21 @@ export default class FillItemInfor extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff'
+
+        backgroundColor: 'transparent',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    formInputContainerStyle: {
+        height: 35
+    },
+    formInputStyle: {
+
+    },
+    buttonLogin: {
+        borderColor: "transparent",
+        borderRadius: 10,
+        
+
     },
 });

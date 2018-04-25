@@ -30,10 +30,10 @@ export default class CommonService extends React.Component {
 
 
     static login(phone, password) {
-        
+
         var num = phone.replace("+", "%2B");
         var url = config.service.url + "/api/sellrecognizer/login?phone=" + num + "&password=" + password;
-        console.log("CommonService login " + url  + phone + " " + password);
+        console.log("CommonService login " + url + phone + " " + password);
         return WebApi.request("GET", url, null, null);
     }
     static payment(itemId, buyerInfo) {
@@ -59,8 +59,10 @@ export default class CommonService extends React.Component {
             function (resolve, reject) {
                 StoreLocalService.getUser().then((user) => {
                     DetectService.getDeviceInfo().then((data) => {
+
                         user.position = data.position;
                         user.weather = data.weather;
+                        user.time = CommonService.getLongDate();
                         resolve(user);
                     }).catch((e) => {
                         reject(e);
@@ -68,26 +70,31 @@ export default class CommonService extends React.Component {
                 });
             });
     }
-    static getItemByQRCode(qrcode){
+    static getLongDate() {
+        var d = new Date();
+        var n = d.getTime();
+        return n;
+    }
+    static getItemByQRCode(qrcode) {
         console.log("CommonService getItemByQRCode qrcode " + qrcode);
         var url = config.service.url + "/api/sellrecognizer/getItemByQRCode?qrcode=" + qrcode;
         return WebApi.request("GET", url, null, null);
     }
-    static updateProfile(id, user){
+    static updateProfile(id, user) {
         console.log("CommonService updateProfile " + id + " " + JSON.stringify(user));
         var data = { id: id, user: user };
         var url = config.service.url + "/api/sellrecognizer/updateUser";
         return WebApi.request("POST", url, data, null);
     }
-    static getProductsByCodes(names){
+    static getProductsByCodes(names) {
         console.log("CommonService getItemsByCodes " + names.length);
         var url = config.service.url + "/api/sellrecognizer/getProductsByCodes";
         return WebApi.request("POST", url, names, null);
     }
-    static confirmReceiveItem(id){
+    static confirmReceiveItem(id) {
         console.log("CommonService confirmReceiveItem " + id);
-        var url = config.service.url + "/api/sellrecognizer/confirmReceiveItem?id="+id;
+        var url = config.service.url + "/api/sellrecognizer/confirmReceiveItem?id=" + id;
         return WebApi.request("GET", url, null, null);
     }
-   
+
 }
