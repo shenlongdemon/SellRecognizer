@@ -9,13 +9,13 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from "../service/CommonService";
 import DetectService from '../components/DetectService';
 import StoreLocalService from '../service/StoreLocalService'
+import ItemInfo from './part/ItemInfo';
 export default class ProductDetail extends React.Component {
     constructor(props) {
         super(props);
         //console.log("ProductDetail " + JSON.stringify(this.props.item));
         this.state = {
             user: null,
-            canBuy: false,
             buyTittle: "BUY"
         };
 
@@ -27,12 +27,24 @@ export default class ProductDetail extends React.Component {
         var self = this;
         StoreLocalService.getUser().then((user) => {
             console.log(self.props.item.owner.id + " " + user.id);
-
             var buy = self.props.item.buyer == undefined ? "BUY" : (self.props.item.buyer.id == user.id ? "CONFIRM" : "BUY");
-            self.setState({ user: user, canBuy: self.props.item.owner.id == user.id, buyTittle: buy });
+            self.setState({ user: user, buyTittle: buy });
             console.log("ProductDetail " + JSON.stringify(self.state));
 
         });
+    }
+    canBuy() {
+        var can = false;
+        if (this.state.user) {
+            if (this.props.item.owner.id != this.state.user.id
+                && this.props.item.sellCode.length > 0
+                && this.props.item.buyerCode.length == 0
+            ) {
+                can = true;
+            }
+        }
+
+        return can;
     }
     confirmReceiveItem() {
         var self = this;
@@ -77,7 +89,7 @@ export default class ProductDetail extends React.Component {
 
                     <Row size={2} style={{ alignItems: 'center', justifyContent: 'center' }} >
                         <QRCode
-                            value={this.props.item.sellCode}
+                            value={CommonService.compress(this.props.item.sellCode)}
                             bgColor='black'
                             fgColor='white' />
                     </Row>
@@ -90,7 +102,12 @@ export default class ProductDetail extends React.Component {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button large disabledStyle={{ backgroundColor: 'transparent', opacity: 0.3 }} disabled={this.state.canBuy} buttonStyle={styles.button} title={this.state.buyTittle} onPress={this.buy.bind(this)} />
+                                    <Button large
+                                        disabledStyle={{ backgroundColor: 'transparent', opacity: 0.3 }}
+                                        disabled={this.canBuy()}
+                                        buttonStyle={styles.button}
+                                        title={this.state.buyTittle}
+                                        onPress={this.buy.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>

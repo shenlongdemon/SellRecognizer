@@ -26,7 +26,7 @@ export default class HistoryItem extends React.Component {
                             />
                         </Col>
                         
-                        <Col size={3}>
+                        <Col size={5}>
                             <Grid style={{ borderBottomWidth: 0.5, borderBottomColor: "gray", width: "90%" }}>
                                 <Row><Text h4>{this.props.user.firstName + ' ' + this.props.user.lastName}</Text></Row>
                                 <Row>

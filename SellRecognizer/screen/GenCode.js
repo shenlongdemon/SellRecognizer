@@ -24,7 +24,7 @@ export default class GenCode extends React.Component {
                     <Row style={{ height: 30 }}></Row>
                     <Row style={styles.container}>
                         <QRCode
-                            value={this.props.code}
+                            value={CommonService.compress(this.props.code)}
                             size={200}
                             bgColor='black'
                             fgColor='white' />

@@ -7,11 +7,11 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import CommonService from "../service/CommonService";
 import CommonPage from "./CommonPage"
 import StoreLocalService from "../service/StoreLocalService";
-import Item from "./part/Item";
+import Product from "./part/Product";
 import FindDocumentButton from "./part/FindDocumentButton";
 
 
-export default class ListItems extends React.Component {
+export default class ListProducts extends React.Component {
     constructor(props) {
         super(props)
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -21,11 +21,14 @@ export default class ListItems extends React.Component {
             pageNum: 1
         };
     }
+    componentWillReceiveProps(nextProps) {
+        Actions.refresh({ title: nextProps.category.value})
+    }
     componentDidMount() {
         var self = this;
         StoreLocalService.getUser().then(function (user) {
             self.setState({ user: user });
-            self.loadItems();
+            self.loadProductsByCategory();
         });
 
 
@@ -40,22 +43,19 @@ export default class ListItems extends React.Component {
             </TouchableOpacity>
         );
     };
-
+    
     refresh = () => {
         self.setState({ pageNum: 1 });
-        this.loadItems();
+        this.loadProductsByCategory();
     }
-    loadItems() {
+    loadProductsByCategory() {
         var self = this;
-        CommonService.getItemsByOwnerId(this.state.user.id)
+        CommonService.getProductsByCategory(this.props.category.id, this.state.pageNum)
             .then(function (res) {
                 if (res.Status == 1) {
-                    console.log("CommonService.getItems res " + JSON.stringify(res));
                     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                     self.setState({ dataSource: ds.cloneWithRows(res.Data) });
-                    console.log("CommonService.getItems state " + JSON.stringify(this.state));
                     self.setState({ pageNum: self.state.pageNum + 1 });
-
                 }
             });
     }
@@ -69,21 +69,12 @@ export default class ListItems extends React.Component {
                             enableEmptySections={true}
                             dataSource={this.state.dataSource}
                             renderRow={(item) =>
-                                <Item item={item} style={{ height: 130 }}></Item>
+                                <Product item={item} style={{ height: 130 }}></Product>
                             }
                         />
                     </Row>
 
-                </Grid>
-                <Icon
-                    reverses
-                    iconStyle={styles.addButton}
-                    name='plus-circle'
-                    type='font-awesome'
-                    color='#eda751'
-                    size={50}
-                    onPress={() => Actions.filliteminfor()}
-                />
+                </Grid>                
             </CommonPage>
         );
     }

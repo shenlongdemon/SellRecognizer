@@ -13,37 +13,51 @@ export default class Product extends React.Component {
         return (
             <View style={[styles.container, { height: this.props.style.height }]} >
                 <TouchableOpacity activeOpacity={.5} onPress={() => Actions.productdetail({ item: this.props.item })}>
-                    <Grid style={{ borderBottomWidth: 2, borderBottomColor: "gray", width: "90%" }}>
-                        <Col style={styles.center} >
+                <Grid style={{ borderBottomWidth: 1, borderBottomColor: "#D8D8D8", width: "90%" }}>
+                        <Col size={2} style={styles.center} >
                             <Image
-                                style={{ width: '80%', height: '80%' }}
+                                style={{ width: '90%', height: '80%' }}
                                 source={{ uri: this.props.item.image }}
-                                resizeMode="contain"
+                                resizeMode="stretch"
                             />
                         </Col>
-                        <Col style={styles.center}>
+                        <Col style={{ width: 10 }} >
+
+                        </Col>
+                        <Col size={4}>
                             <Grid>
-                                <Row size={2}>
 
+                                <Row size={5}>
+                                    <Col size={4}>
+                                        <Grid>
+                                            <Row size={1}>
+
+                                            </Row>
+                                            <Row size={2}><Text h4>{this.props.item.name}</Text></Row>
+                                            <Row size={2}><Text>{this.props.item.category.value}</Text></Row>
+                                            
+                                        </Grid>
+
+                                    </Col>
+                                    <Col size={1} style={styles.imageArrow} >
+                                        <Image
+                                            style={{ width: this.props.style.height / 4, height: this.props.style.height / 4 }}
+                                            source={require("../../assets/arrow.png")}
+                                        />
+
+                                    </Col>
                                 </Row>
-                                <Row size={1}><Text>{this.props.item.category.value}</Text></Row>
-                                <Row size={1}><Text>{this.props.item.name}</Text></Row>
-                                <Row size={1}><Text>{this.props.item.owner.firstName}</Text></Row>
                                 <Row size={1}>
-
-                                  
-
+                                    <Col>
+                                        
+                                    </Col>
+                                    <Col>
+                                        <Text style={{ color: 'green', flex:1, textAlign:'right' }}>{this.props.item.price + "$"}</Text>
+                                    </Col>
                                 </Row>
                             </Grid>
                         </Col>
-                        <Col style={styles.imageArrow} >
 
-                            <Image
-                                style={{ width: this.props.style.height / 4, height: this.props.style.height / 4 }}
-                                source={require("../../assets/arrow.png")}
-                            />
-
-                        </Col>
                     </Grid>
                 </TouchableOpacity>
             </View>

@@ -4,7 +4,7 @@ import config from '../config.json';
 import _ from "underscore";
 import StoreLocalService from "./StoreLocalService";
 import DetectService from "../components/DetectService";
-
+import lzjs from 'lzjs';
 export default class CommonService extends React.Component {
     static getCategories() {
         console.log("CommonService getCategories");
@@ -19,6 +19,11 @@ export default class CommonService extends React.Component {
     static getItemsByOwnerId(ownerId) {
         console.log("CommonService getItemsByOwnerId " + ownerId);
         var url = config.service.url + "/api/sellrecognizer/getItemsByOwnerId?ownerId=" + ownerId + "&pageNum=1&pageSize=10000";
+        return WebApi.request("GET", url, null, null);
+    }
+    static getProductsByCategory(categoryId, pageNum) {
+        console.log("CommonService getProductsByCategory " + categoryId);
+        var url = config.service.url + "/api/sellrecognizer/getProductsByCategory?categoryId=" + categoryId + "&pageNum=" + pageNum + "&pageSize=20";
         return WebApi.request("GET", url, null, null);
     }
     static getItems() {
@@ -96,5 +101,9 @@ export default class CommonService extends React.Component {
         var url = config.service.url + "/api/sellrecognizer/confirmReceiveItem?id=" + id;
         return WebApi.request("GET", url, null, null);
     }
-
+    static compress(str) {
+        var c = lzjs.compress(str);
+        console.log("compress " + str.length + " --> " + c.length);
+        return c;
+    }
 }

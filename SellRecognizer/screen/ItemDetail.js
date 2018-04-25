@@ -7,12 +7,13 @@ import { Actions } from 'react-native-router-flux'; // New code
 import CommonPage from "./CommonPage"
 import { Col, Row, Grid } from "react-native-easy-grid";
 import ItemInfo from "./part/ItemInfo";
+import CommonService from '../service/CommonService'
 export default class ItemDetail extends React.Component {
     constructor(props) {
         super(props);
         console.log("ItemDetail " + JSON.stringify(this.props.item));
         this.state = {
-            carSell : this.props.item.sellCode == "" 
+            carSell: this.props.item.sellCode == ""
         };
 
     }
@@ -25,7 +26,7 @@ export default class ItemDetail extends React.Component {
     sell() {
         Actions.publishsell({ item: this.props.item });
     }
-    history(){
+    history() {
         Actions.history({ item: this.props.item });
     }
     render() {
@@ -38,13 +39,13 @@ export default class ItemDetail extends React.Component {
                     <Row size={4}>
                         <ItemInfo item={this.props.item} />
                     </Row>
-                    
+
                     <Row size={2} style={{ alignItems: 'center', justifyContent: 'center' }} >
                         <QRCode
-                            value={this.props.item.code}
+                            value={CommonService.compress(this.props.item.sellCode.length == 0 ? this.props.item.code : this.props.item.sellCode)}
                             bgColor='black'
                             fgColor='white' />
-                    </Row>                  
+                    </Row>
 
                     <Row style={{ height: 50 }}>
                         <ImageBackground
@@ -53,7 +54,7 @@ export default class ItemDetail extends React.Component {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button disabledStyle={{backgroundColor:'transparent', opacity:0.3}} disabled={ this.props.item.sellCode != "" } large buttonStyle={styles.button}  title="SELL" onPress={this.sell.bind(this)} />
+                                    <Button disabledStyle={{ backgroundColor: 'transparent', opacity: 0.3 }} disabled={this.props.item.sellCode != ""} large buttonStyle={styles.button} title="SELL" onPress={this.sell.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>

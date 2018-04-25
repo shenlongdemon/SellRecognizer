@@ -41,7 +41,7 @@ export default class ItemInfo extends React.Component {
                         </Row>
                         <Row >
                             <Text style={{ textAlign: 'center', width: "100%" }} >
-                                {"Purchases at: " + dt + "\n" + "Address: " + this.props.item.owner.weather.name}
+                                {"Purchased at: " + dt + "\n" + "Address: " + this.props.item.owner.weather.name}
                             </Text>
                         </Row>
 

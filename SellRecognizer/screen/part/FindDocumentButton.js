@@ -45,7 +45,7 @@ export default class FindDocumentButton extends React.Component {
                             resizeMode='stretch'
                             source={require("../../assets/background.png")}
                             style={styles.container}>
-                            <Button large buttonStyle={styles.button} title="All Products Around" onPress={this.findProduct.bind(this)} />
+                            <Button large buttonStyle={styles.button} title="All Products" onPress={this.findProduct.bind(this)} />
                         </ImageBackground>
                     </Col>
 

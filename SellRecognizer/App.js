@@ -19,6 +19,7 @@ import FindProduct from './screen/FindProduct';
 import LookAround from './screen/LookAround';
 import ProductDetail from './screen/ProductDetail';
 import History from './screen/History';
+import ListProducts from './screen/ListProducts';
 
 
 const TabIcon = ({ title, focused }) => {
@@ -102,7 +103,7 @@ export default class App extends React.Component {
                                     title="Ubuta"
                                     initial
                                     icon={TabIcon}
-                                    tabBarLabel="TAB #1"
+                                    tabBarLabel="Look Around"
                                 >
                                 </Scene>
                                 <Scene key="lookaround"
@@ -120,7 +121,8 @@ export default class App extends React.Component {
                                 <Scene key="listitems"
                                     component={ListItems}
                                     title="My Documents"
-                                    icon={TabIcon}
+                                    icon={TabIcon} 
+                                    tabBarLabel="My Documents"
                                 >
                                 </Scene>
                             </Scene>
@@ -132,6 +134,7 @@ export default class App extends React.Component {
                                     component={MyProfile}
                                     title="My Profile"
                                     icon={TabIcon}
+                                    tabBarLabel="My Profile"
                                 />
                             </Scene>
                         </Scene>
@@ -148,7 +151,7 @@ export default class App extends React.Component {
                             component={History}
                             title="History"
                         />
-                        
+
                         <Scene key="publishsell"
                             component={PublishSell}
                             title="Generate Code"
@@ -179,7 +182,10 @@ export default class App extends React.Component {
                             direction="vertical"
                             title="All Products"
                         />
-
+                        <Scene key="listproduct"
+                            component={ListProducts}
+                            title=""
+                        />
 
                     </Scene>
                 </Router>

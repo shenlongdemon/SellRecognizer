@@ -22,12 +22,14 @@ export default class MyProfile extends React.Component {
             country: "",
             image: ""
         };
+
+    }
+    componentDidMount() {
         this.loadUser();
     }
     loadUser() {
         var self = this;
         StoreLocalService.getUser().then((user) => {
-            user.image = (user.image == undefined || user.image == "") ? "../assets/library.png" : user.image;
             console.log("image = " + user.image);
             var obj = this.state;
             Object.assign(obj, user);
@@ -39,12 +41,13 @@ export default class MyProfile extends React.Component {
         var self = this;
 
         console.log("self.user " + JSON.stringify(self.state));
-
-        // CommonService.updateProfile(self.state.user.id, self.state.user).then((res) => {
-        //     if (res.Status == 1) {
-        //         StoreLocalService.setUser(res.Data);                
-        //     }
-        // });
+        var user = self.state;
+        CommonService.updateProfile(self.state.id, user).then((res) => {
+            if (res.Status == 1) {
+                StoreLocalService.setUser(res.Data);
+                Actions.reset("mainboard");
+            }
+        });
 
     }
     logout() {
@@ -71,55 +74,120 @@ export default class MyProfile extends React.Component {
         return (
             <CommonPage styles={styles.container}>
                 <Grid>
-                    <Row size={1}>
-                        <Col size={1}>
-                            <TouchableOpacity activeOpacity={.5} onPress={() => this.selectImage()}>
-                                <Image
-                                    style={{ height: "100%", width: "100%" }}
-                                    source={(this.state.image != undefined && this.state.image != "") ? { uri: this.state.image } :
-                                        require('../assets/library.png')
+                    <Row size={1} >
+                        <TouchableOpacity style={{ width: '100%', height: '100%', justifyContent: 'center' }} activeOpacity={.5} onPress={() => this.selectImage()}>
 
-                                    }
-                                    resizeMode="contain"
-                                />
-                            </TouchableOpacity>
-                        </Col>
-                        <Col size={2}>
-                            <Grid>
-                                <Row >
-                                    <FormLabel>First Name</FormLabel>
-                                    <FormInput containerStyle={{ height: 30 }} value={this.state.firstName} style={styles.rowField} onChangeText={(firstName) => this.setState({ firstName: firstName })} placeholder="First Name" placeholderTextColor='gray' inputStyle={{ color: 'black' }} />
-                                </Row>
-                                <Row style={styles.rowField}>
-                                    <FormLabel>Last Name</FormLabel>
-                                    <FormInput containerStyle={{ height: 30 }} style={styles.rowField} onChangeText={(text) => this.setState({ password: text })} placeholder="First Name" placeholderTextColor='gray' inputStyle={{ color: 'black' }} />
-                                </Row>
-                            </Grid>
-                        </Col>
+
+                            <Image
+                                style={{ width: '100%', height: '100%' }}
+                                source={
+                                    (this.state.image == undefined || this.state.image == "")
+                                        ? require('../assets/library.png')
+                                        :
+                                        { uri: this.state.image }
+
+                                }
+                                resizeMode="contain"
+                            />
+                        </TouchableOpacity>
+
                     </Row>
                     <Row size={3}>
                         <Grid>
-                            <Row style={styles.rowField}>
-                                <FormLabel>Address</FormLabel>
-                                <FormInput style={styles.rowField} onChangeText={(text) => this.setState({ password: text })} placeholder="First Name" placeholderTextColor='gray' inputStyle={{ color: 'black' }} />
-                            </Row>
-                            <Row style={styles.rowField}>
-                                <FormLabel>Zip Code</FormLabel>
-                                <FormInput style={styles.rowField} onChangeText={(text) => this.setState({ password: text })} placeholder="First Name" placeholderTextColor='gray' inputStyle={{ color: 'black' }} />
-                            </Row>
-                            <Row style={styles.rowField}>
-                                <FormLabel>State</FormLabel>
-                                <FormInput style={styles.rowField} onChangeText={(text) => this.setState({ password: text })} placeholder="First Name" placeholderTextColor='gray' inputStyle={{ color: 'black' }} />
-                            </Row>
-                            <Row style={styles.rowField}>
-                                <FormLabel>Country</FormLabel>
-                                <FormInput style={styles.rowField} onChangeText={(text) => this.setState({ password: text })} placeholder="First Name" placeholderTextColor='gray' inputStyle={{ color: 'black' }} />
-                            </Row>
-                            <Row style={styles.rowField}>
-                                <Button onPress={this.updateProfile.bind(this)} title="Register Here" />
-                                <Button onPress={this.logout.bind(this)} title="Log out" />
+                            <Row >
+                                <Col size={1}>
+                                    <FormLabel>First Name</FormLabel>
+                                </Col>
+                                <Col size={2}>
+                                    <FormInput
+                                        containerStyle={styles.formInputContainerStyle}
+                                        value={this.state.firstName}
+                                        style={styles.rowField}
+                                        onChangeText={(firstName) => this.setState({ firstName: firstName })}
+                                        placeholder="First Name"
+                                        placeholderTextColor='gray'
+                                        inputStyle={{ color: 'black' }} />
+                                </Col>
+
 
                             </Row>
+                            <Row style={styles.rowField}>
+                                <Col size={1}>
+                                    <FormLabel>Last Name</FormLabel>
+                                </Col>
+                                <Col size={2}>
+                                    <FormInput
+                                        containerStyle={styles.formInputContainerStyle}
+                                        style={styles.rowField}
+                                        onChangeText={(text) => this.setState({ lastName: text })}
+                                        value={this.state.lastName}
+                                        placeholder="Last Name"
+                                        placeholderTextColor='gray'
+                                        inputStyle={{ color: 'black' }} />
+                                </Col>
+                            </Row>
+                            <Row style={styles.rowField}>
+                                <Col size={1}>
+                                    <FormLabel>Zip code</FormLabel>
+                                </Col>
+                                <Col size={2}>
+                                    <FormInput
+                                        containerStyle={styles.formInputContainerStyle}
+                                        style={styles.rowField}
+                                        onChangeText={(text) => this.setState({ zipCode: text })}
+                                        value={this.state.zipCode}
+                                        placeholder="Zip code"
+                                        placeholderTextColor='gray'
+                                        inputStyle={{ color: 'black' }} />
+                                </Col>
+                            </Row>
+                            <Row style={styles.rowField}>
+                                <Col size={1}>
+                                    <FormLabel>State</FormLabel>
+                                </Col>
+                                <Col size={2}>
+                                    <FormInput
+                                        style={styles.rowField}
+                                        containerStyle={styles.formInputContainerStyle}
+                                        onChangeText={(text) => this.setState({ state: text })}
+                                        value={this.state.state}
+                                        placeholder="State"
+                                        placeholderTextColor='gray'
+                                        inputStyle={{ color: 'black' }} />
+                                </Col>
+                            </Row>
+                            <Row style={styles.rowField}>
+                                <Col size={1}>
+                                    <FormLabel>Country</FormLabel>
+                                </Col>
+                                <Col size={2}>
+                                    <FormInput
+                                        style={styles.rowField}
+                                        containerStyle={styles.formInputContainerStyle}
+                                        onChangeText={(text) => this.setState({ country: text })}
+                                        value={this.state.country}
+                                        placeholder="Country"
+                                        placeholderTextColor='gray'
+                                        inputStyle={{ color: 'black' }} />
+                                </Col>
+                            </Row>
+
+                            <Row style={{
+                                height: 70
+                            }}>
+
+
+                                <Col style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Button large buttonStyle={styles.buttonLogin} title="Update" onPress={this.updateProfile.bind(this)} backgroundColor="#eda751" />
+
+                                </Col>
+                                <Col style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Button large buttonStyle={styles.buttonLogin} title="Logout" onPress={this.logout.bind(this)} backgroundColor="red" />
+
+                                </Col>
+
+                            </Row>
+
                         </Grid>
                     </Row>
                 </Grid>
@@ -137,7 +205,15 @@ const styles = StyleSheet.create({
     rowField: {
         height: 50,
 
-    }
+    },
+    formInputContainerStyle: {
+        height: 35
+    },
+    buttonLogin: {
+        borderColor: "transparent",
+        borderRadius: 10
+
+    },
 });
 
 {/* 

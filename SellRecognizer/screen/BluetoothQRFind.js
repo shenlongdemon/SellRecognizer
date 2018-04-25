@@ -144,7 +144,7 @@ export default class BluetoothQRFind extends React.Component {
                                     </Col>
                                     <Col size={1}></Col>
                                 </Row>
-                                <Row style={{ height: 10 }} >
+                                <Row style={{ height: 50 }} >
 
                                 </Row>
                             </Grid>

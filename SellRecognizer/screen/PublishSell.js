@@ -9,7 +9,7 @@ import CommonService from "../service/CommonService";
 import DetectService from '../components/DetectService';
 import StoreLocalService from '../service/StoreLocalService'
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import ItemInfo from './part/ItemInfo';
 export default class PublishSell extends React.Component {
     constructor(props) {
         super(props);
@@ -50,12 +50,8 @@ export default class PublishSell extends React.Component {
                     <Row style={{ height: 50 }}>
 
                     </Row>
-                    <Row >
-                        <Image
-                            style={{ height: "100%", width: "100%" }}
-                            source={{ uri: this.state.item.image }}
-                            resizeMode="contain"
-                        />
+                    <Row size={4}>
+                        <ItemInfo item={this.props.item} />
                     </Row>
                     <Row >
 
@@ -64,8 +60,7 @@ export default class PublishSell extends React.Component {
                         {
                             (this.state.item.sellCode != undefined && this.state.item.sellCode != "") ?
                                 <QRCode
-                                    value={this.state.item.sellCode}
-                                    //size={100}
+                                    value={this.state.item.code}
                                     bgColor='black'
                                     fgColor='white' />
                                 : <View />
