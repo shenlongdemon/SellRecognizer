@@ -49,7 +49,7 @@ export default class PaymentProduct extends React.Component {
                     </Row>
                     <Row style={{ height: 50 }}>
                         <Col size={1}></Col>
-                        <Col size={7}  >
+                        <Col size={3}  >
                             <Button fontSize={20} buttonStyle={styles.button} title="PAYMENT" onPress={this.payment.bind(this)} backgroundColor="#eda751" />
                         </Col>
                         <Col size={1}></Col>

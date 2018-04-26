@@ -25,7 +25,7 @@ export default class History extends React.Component {
             }
         });
 
-        if (this.props.item.buyerCode != "") {
+        if (this.props.item.buyerCode.length > 0 ) {
             var buyer = this.props.item.buyer;
             buyer.index = 1;
             histories.push(this.props.item.buyer);

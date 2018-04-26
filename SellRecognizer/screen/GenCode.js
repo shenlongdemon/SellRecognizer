@@ -25,16 +25,16 @@ export default class GenCode extends React.Component {
                     <Row style={styles.container}>
                         <QRCode
                             value={CommonService.compress(this.props.code)}
-                            size={200}
+                            size={300}
                             bgColor='black'
                             fgColor='white' />
                     </Row>
-                    <Row style={styles.container}>
+                    {/* <Row style={styles.container}>
                         <OMCode
                             style={{ width: 200, height: 200 }}
                             text={this.props.code}
                         />
-                    </Row>
+                    </Row> */}
                     <Row style={{
                         height: 70, alignItems: 'center',
                         justifyContent: 'center'
@@ -42,7 +42,7 @@ export default class GenCode extends React.Component {
 
                         <Col sixe={2}></Col>
                         <Col>
-                        <Button large buttonStyle={styles.buttonLogin} title="Done" onPress={() => Actions.reset('mainboard')} backgroundColor="#eda751" />
+                        <Button buttonStyle={styles.buttonLogin} title="Done" onPress={() => Actions.reset('mainboard')} backgroundColor="#eda751" />
 
                         </Col>
                         <Col sixe={2}></Col>

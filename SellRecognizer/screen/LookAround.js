@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,  View, ListView, Image,TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ListView, Image, TouchableOpacity,ActivityIndicator } from 'react-native';
 import { FormLabel, FormInput, Button, Text, Icon } from 'react-native-elements'
 
 import { Actions } from 'react-native-router-flux'; // New code
@@ -10,6 +10,7 @@ import StoreLocalService from "../service/StoreLocalService";
 import Product from "./part/Product";
 import FindDocumentButton from "./part/FindDocumentButton";
 import Bluetooth from 'react-native-bluetooth-manager';
+import _ from "underscore";
 
 
 export default class LookAround extends React.Component {
@@ -20,7 +21,8 @@ export default class LookAround extends React.Component {
             dataSource: ds.cloneWithRows([]),
             user: {},
             pageNum: 1,
-            count: 1
+            count: 1,
+            loading:false
         };
     }
     componentDidMount() {
@@ -32,13 +34,13 @@ export default class LookAround extends React.Component {
 
 
     }
-    componentWillMount(){
+    componentWillMount() {
         Actions.refresh({ right: this.renderRefreshButton });
     }
     renderRefreshButton = () => {
-        return(
-            <TouchableOpacity onPress={() => this.refresh() } >
-                <Icon name="sync" size={25} color='white' />
+        return (
+            <TouchableOpacity onPress={() => this.refresh()} >
+                <Icon name="ios-sync" type='ionicon' size={35} color='white' />
             </TouchableOpacity>
         );
     };
@@ -48,11 +50,23 @@ export default class LookAround extends React.Component {
     }
     loadItemsByBluetoothNames(names) {
         var self = this;
+        var devices = [];
 
-        names.push('52141318121823147242102312142772');
-        CommonService.getProductsByCodes(names).then((res) => {
+        _.each(names, function (name, index) {
+            var d = { name: name, type: -1 };
+            devices.push(d);
+        });
+
+        CommonService.getProductsByBluetoothCodes(names).then((res) => {
+            self.setState({loading:false});
             if (res.Status == 1) {
+                _.each(res.Data, function (pruduct, index) {
+                    pruduct.type = 1;
+                });
+
                 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+                res.Data.push(...devices);
+
                 self.setState({ dataSource: ds.cloneWithRows(res.Data) });
                 self.setState({ count: res.Data.length });
             }
@@ -62,8 +76,10 @@ export default class LookAround extends React.Component {
         });
     }
     scanBluetooth() {
+
         console.log("scanBluetooth");
         var self = this;
+        self.setState({loading:true});
         var names = [];
         const discoverOptions = {
             uuids: [] // list of BLE service uuids to filter devices during scan
@@ -100,13 +116,48 @@ export default class LookAround extends React.Component {
         return (
             <CommonPage style={styles.container}>
                 <Grid >
+                    {
+                        !this.state.loading ? <View/>
+                        :<Row style={{
+                            alignItems: 'center',
+                            justifyContent: 'center', height: 70
+                        }}>
+                            <ActivityIndicator size="large" color="#0000ff" />
+                        </Row>
+                    }
+                    {
+
+
+                        (this.state.count > 0 || this.state.loading) ? <View />
+                            : <Row style={{
+                                alignItems: 'center',
+                                justifyContent: 'center', height: 70
+                            }}>
+                                <Text h3 style={{color:'#B1B0B0'}}>No bluetooth around.</Text>
+                            </Row>
+                    }
+
+
                     <Row >
                         <ListView
                             style={{ backgroundColor: "#e6e6e6" }}
                             enableEmptySections={true}
                             dataSource={this.state.dataSource}
                             renderRow={(item) =>
-                                <Product item={item} style={{ height: 130 }}></Product>
+                                item.type == 1 ?
+                                    <Product item={item} style={{ height: 130 }}></Product>
+                                    : <Grid style={{ height: 130 }}>
+                                        <Row >
+                                            <Col size={1}>
+                                            </Col>
+                                            <Col size={9} style={{ justifyContent: 'center', }}>
+                                                <Text>{item.name}</Text>
+                                            </Col>
+
+                                        </Row>
+                                    </Grid>
+
+
                             }
                         />
                     </Row>

@@ -10,7 +10,7 @@ export default class HistoryItem extends React.Component {
         
     }
     render() {
-        let action = this.props.user.index == 0 ? "Produced on " : (this.props.user.index == 1 ? "Is buying on " : "Purchased on ")
+        let action = this.props.user.index == 0 ? "Produced on " : (this.props.user.index == 1 ? "Is sold on " : "Purchased on ")
         let dt = new Date(this.props.user.time).toLocaleString();
 
         return (

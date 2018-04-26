@@ -36,13 +36,13 @@ export default class ListItems extends React.Component {
     renderRefreshButton = () => {
         return (
             <TouchableOpacity onPress={() => this.refresh()} >
-                <Icon name="sync"  size={25} color='white' />
+                <Icon name="ios-sync" type='ionicon' size={35} color='white' />
             </TouchableOpacity>
         );
     };
 
     refresh = () => {
-        self.setState({ pageNum: 1 });
+        this.setState({ pageNum: 1 });
         this.loadItems();
     }
     loadItems() {
@@ -78,10 +78,12 @@ export default class ListItems extends React.Component {
                 <Icon
                     reverses
                     iconStyle={styles.addButton}
-                    name='plus-circle'
-                    type='font-awesome'
+                    // name='plus-circle'
+                    // type='font-awesome'
+                    name = 'ios-add-circle'
+                    type='ionicon'
                     color='#eda751'
-                    size={50}
+                    size={70}
                     onPress={() => Actions.filliteminfor()}
                 />
             </CommonPage>

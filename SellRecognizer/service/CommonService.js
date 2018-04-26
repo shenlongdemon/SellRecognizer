@@ -23,7 +23,7 @@ export default class CommonService extends React.Component {
     }
     static getProductsByCategory(categoryId, pageNum) {
         console.log("CommonService getProductsByCategory " + categoryId);
-        var url = config.service.url + "/api/sellrecognizer/getProductsByCategory?categoryId=" + categoryId + "&pageNum=" + pageNum + "&pageSize=20";
+        var url = config.service.url + "/api/sellrecognizer/getProductsByCategory?categoryId=" + categoryId + "&pageNum=" + pageNum + "&pageSize=10000";
         return WebApi.request("GET", url, null, null);
     }
     static getItems() {
@@ -96,6 +96,14 @@ export default class CommonService extends React.Component {
         var url = config.service.url + "/api/sellrecognizer/getProductsByCodes";
         return WebApi.request("POST", url, names, null);
     }
+    static getProductsByBluetoothCodes(names) {
+        console.log("CommonService getItemsByCodes " + names.length);
+        var url = config.service.url + "/api/sellrecognizer/getProductsByBluetoothCodes";
+        return WebApi.request("POST", url, names, null);
+    }
+    
+    
+    
     static confirmReceiveItem(id) {
         console.log("CommonService confirmReceiveItem " + id);
         var url = config.service.url + "/api/sellrecognizer/confirmReceiveItem?id=" + id;
@@ -103,7 +111,12 @@ export default class CommonService extends React.Component {
     }
     static compress(str) {
         var c = lzjs.compress(str);
-        console.log("compress " + str.length + " --> " + c.length);
+        console.log("compress " + str.length + " --> " + c);
         return c;
+    }
+    static cancelSell(itemId){
+        console.log("CommonService cancelSell " +itemId);
+        var url = config.service.url + "/api/sellrecognizer/cancelSell?id=" + itemId;
+        return WebApi.request("GET", url, null, null);
     }
 }

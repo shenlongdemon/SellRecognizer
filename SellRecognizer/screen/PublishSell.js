@@ -21,13 +21,13 @@ export default class PublishSell extends React.Component {
     }
     componentDidMount() {
         var self = this;
-        CommonService.getUserInfo().then((user) =>{
+        CommonService.getUserInfo().then((user) => {
             self.setState({ user: user });
         });
     }
-    canSell(){
+    canSell() {
         var can = true;
-        if (this.state.item.sellCode.length > 0){
+        if (this.state.item.sellCode.length > 0) {
             can = false;
         }
         return can;
@@ -39,7 +39,7 @@ export default class PublishSell extends React.Component {
         CommonService.publishSell(self.state.item.id, self.state.user).then((res) => {
             console.log("PublishSell publishSell done with res " + JSON.stringify(res));
             if (res.Status == 1) {
-                Actions.gencode({code:res.Data.sellCode});
+                Actions.gencode({ code: res.Data.sellCode });
             }
         });
     }
@@ -69,11 +69,19 @@ export default class PublishSell extends React.Component {
                     </Row>
 
                     <Row style={styles.container}>
-                        {
-                            (this.canSell()) ?
-                                <Button large buttonStyle={styles.button} title="Generate Code" onPress={this.publishSell.bind(this)} />
-                                : <View />
-                        }
+
+                        <Col size={2}></Col>
+                        <Col size={9} style={{
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}>
+                            {
+                                (this.canSell()) ?
+                                    <Button buttonStyle={styles.buttonLogin} title="Generate Code" onPress={this.publishSell.bind(this)} />
+                                    : <View />
+                            }
+                        </Col>
+                        <Col size={2}></Col>
                     </Row>
 
                     <Row style={{ height: 50 }}>
@@ -96,8 +104,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#eda751",
         borderColor: "transparent",
         borderRadius: 10,
-        width: '100%',
+        width: '80%',
 
 
+    },
+    buttonLogin: {
+        borderColor: "transparent",
+        borderRadius: 10,
+        backgroundColor: "#eda751",
     },
 });

@@ -13,9 +13,13 @@ export default class ItemDetail extends React.Component {
         super(props);
         console.log("ItemDetail " + JSON.stringify(this.props.item));
         this.state = {
-            carSell: this.props.item.sellCode == ""
+            carSell: this.canSell(),
+            sellTitle: this.canSell() ? "SELL" : "CANCEL"
         };
 
+    }
+    canSell() {
+        return this.props.item.sellCode.length == 0;
     }
     componentWillReceiveProps(nextProps) {
         Actions.refresh({ title: nextProps.item.name + " " + nextProps.item.category.value })
@@ -24,7 +28,19 @@ export default class ItemDetail extends React.Component {
         Actions.refresh({ title: this.props.item.name + " " + this.props.item.category.value })
     }
     sell() {
-        Actions.publishsell({ item: this.props.item });
+        if (this.canSell()) {
+            Actions.publishsell({ item: this.props.item });
+        }
+        else {
+            CommonService.cancelSell(this.props.item.id).then((res) => {
+                if (res.Status == 1) {
+                    Actions.reset("mainboard");
+                }
+                else {
+                    alert(res.Data);
+                }
+            });
+        }
     }
     history() {
         Actions.history({ item: this.props.item });
@@ -33,15 +49,16 @@ export default class ItemDetail extends React.Component {
         return (
             <CommonPage style={styles.container}>
                 <Grid>
-                    <Row style={{ height: 30 }}>
+                    <Row style={{ height: 5 }}>
 
                     </Row>
-                    <Row size={4}>
+                    <Row size={3}>
                         <ItemInfo item={this.props.item} />
                     </Row>
 
-                    <Row size={2} style={{ alignItems: 'center', justifyContent: 'center' }} >
+                    <Row size={3} style={{ alignItems: 'center', justifyContent: 'center' }} >
                         <QRCode
+                            size={240}
                             value={CommonService.compress(this.props.item.sellCode.length == 0 ? this.props.item.code : this.props.item.sellCode)}
                             bgColor='black'
                             fgColor='white' />
@@ -54,7 +71,10 @@ export default class ItemDetail extends React.Component {
                             style={styles.container}
                         ><Grid style={styles.container}>
                                 <Col>
-                                    <Button disabledStyle={{ backgroundColor: 'transparent', opacity: 0.3 }} disabled={this.props.item.sellCode != ""} large buttonStyle={styles.button} title="SELL" onPress={this.sell.bind(this)} />
+                                    <Button
+                                        buttonStyle={styles.button}
+                                        title={this.state.sellTitle}
+                                        onPress={this.sell.bind(this)} />
                                 </Col>
                                 <Col style={{ width: 1, height: 40, borderWidth: 0.5, borderColor: '#FAFAFA' }} ></Col>
                                 <Col>

@@ -39,18 +39,18 @@ export default class ListProducts extends React.Component {
     renderRefreshButton = () => {
         return (
             <TouchableOpacity onPress={() => this.refresh()} >
-                <Icon name="sync"  size={25} color='white' />
+                <Icon name="ios-sync" type='ionicon' size={35} color='white' />
             </TouchableOpacity>
         );
     };
     
-    refresh = () => {
-        self.setState({ pageNum: 1 });
+    refresh() {
+        this.setState({ pageNum: 1 });
         this.loadProductsByCategory();
     }
     loadProductsByCategory() {
         var self = this;
-        CommonService.getProductsByCategory(this.props.category.id, this.state.pageNum)
+        CommonService.getProductsByCategory(this.props.category.id, 1)
             .then(function (res) {
                 if (res.Status == 1) {
                     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });

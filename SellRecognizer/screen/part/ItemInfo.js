@@ -24,7 +24,6 @@ export default class ItemInfo extends React.Component {
                     <Grid style={styles.container}>
                         <Row>
                             <Text h4>{this.props.item.name}</Text>
-
                         </Row>
                         <Row >
                             <Text >{this.props.item.category.value}</Text>
@@ -37,14 +36,15 @@ export default class ItemInfo extends React.Component {
                         <Row >
                             <Text>{"Owner: " + this.props.item.owner.firstName + " " + this.props.item.owner.lastName}</Text>
                         </Row>
-                        <Row >
+                        <Row style={{height:5}}>
                         </Row>
                         <Row >
                             <Text style={{ textAlign: 'center', width: "100%" }} >
                                 {"Purchased at: " + dt + "\n" + "Address: " + this.props.item.owner.weather.name}
                             </Text>
                         </Row>
-
+                        <Row style={{height:5}}>
+                        </Row>
 
                     </Grid>
 

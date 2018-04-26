@@ -21,7 +21,7 @@ export default class ProductDetail extends React.Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        Actions.refresh({ title: nextProps.item.name + " " + nextProps.item.category.value })
+        Actions.refresh({ title: nextProps.item.name})
     }
     componentWillMount() {
         var self = this;
@@ -35,16 +35,13 @@ export default class ProductDetail extends React.Component {
     }
     canBuy() {
         var can = false;
-        if (this.state.user) {
-            if (this.props.item.owner.id != this.state.user.id
-                && this.props.item.sellCode.length > 0
-                && this.props.item.buyerCode.length == 0
-            ) {
-                can = true;
-            }
-        }
 
-        return can;
+        if (this.props.item.sellCode.length > 0
+            && this.props.item.buyerCode.length == 0
+        ) {
+            can = true;
+        }
+        return true;
     }
     confirmReceiveItem() {
         var self = this;
@@ -56,20 +53,25 @@ export default class ProductDetail extends React.Component {
         });
     }
     buy() {
-        var self = this;
-        if (this.state.buyTittle == "CONFIRM") {
-            Alert.alert(
-                'Confirm',
-                'You received pruduct and confirm ?',
-                [
-                    { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                    { text: 'Yes', onPress: () => self.confirmReceiveItem() },
-                ],
-                { cancelable: false }
-            )
+        if (this.state.user && this.props.item.owner.id == this.state.user.id) {
+            alert("It's yours so you cannot buy.");
         }
         else {
-            Actions.paymentproduct({ item: this.props.item });
+            var self = this;
+            if (this.state.buyTittle == "CONFIRM") {
+                Alert.alert(
+                    'Confirm',
+                    'You received pruduct and confirm ?',
+                    [
+                        { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                        { text: 'Yes', onPress: () => self.confirmReceiveItem() },
+                    ],
+                    { cancelable: false }
+                )
+            }
+            else {
+                Actions.paymentproduct({ item: this.props.item });
+            }
         }
     }
     history() {
@@ -80,15 +82,16 @@ export default class ProductDetail extends React.Component {
         return (
             <CommonPage style={styles.container}>
                 <Grid>
-                    <Row style={{ height: 50 }}>
+                    <Row style={{ height: 5 }}>
 
                     </Row>
-                    <Row size={4}>
+                    <Row size={3}>
                         <ItemInfo item={this.props.item} />
                     </Row>
 
-                    <Row size={2} style={{ alignItems: 'center', justifyContent: 'center' }} >
+                    <Row size={3} style={{ alignItems: 'center', justifyContent: 'center' }} >
                         <QRCode
+                            size={240}
                             value={CommonService.compress(this.props.item.sellCode)}
                             bgColor='black'
                             fgColor='white' />
@@ -104,7 +107,7 @@ export default class ProductDetail extends React.Component {
                                 <Col>
                                     <Button large
                                         disabledStyle={{ backgroundColor: 'transparent', opacity: 0.3 }}
-                                        disabled={this.canBuy()}
+                                        disabled={!this.canBuy()}
                                         buttonStyle={styles.button}
                                         title={this.state.buyTittle}
                                         onPress={this.buy.bind(this)} />

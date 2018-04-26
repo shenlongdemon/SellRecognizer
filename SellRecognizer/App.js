@@ -100,7 +100,7 @@ export default class App extends React.Component {
                             >
                                 <Scene key="bluetoothqrfind"
                                     component={BluetoothQRFind}
-                                    title="Ubuta"
+                                    title="uGuta"
                                     initial
                                     icon={TabIcon}
                                     tabBarLabel="Look Around"
@@ -129,12 +129,14 @@ export default class App extends React.Component {
                             <Scene key="myprofile"
                                 title="myprofile"
                                 icon={TabIcon}
+                                titleStyle={{color:'white'}}
                             >
                                 <Scene key="myprofile"
                                     component={MyProfile}
                                     title="My Profile"
                                     icon={TabIcon}
                                     tabBarLabel="My Profile"
+                                    titleStyle={{color:'white'}}
                                 />
                             </Scene>
                         </Scene>
@@ -145,7 +147,7 @@ export default class App extends React.Component {
                         />
                         <Scene key="productdetail"
                             component={ProductDetail}
-                            title=""
+                            title="Info"
                         />
                         <Scene key="history"
                             component={History}

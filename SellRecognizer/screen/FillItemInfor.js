@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, Geolocation, TouchableOpacity } from 'react-native';
-import { FormLabel, FormValidationMessage, FormInput, Button, Text,Icon } from 'react-native-elements'
+import { FormLabel, FormValidationMessage, FormInput, Button, Text, Icon } from 'react-native-elements'
 
 import { Actions } from 'react-native-router-flux'; // New code
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -42,9 +42,10 @@ export default class FillItemInfor extends React.Component {
         console.log("pick image ");
         var self = this;
         ImagePicker.launchImageLibraryAsync({
-            allowsEditing: true,
+            //allowsEditing: true,
             base64: true,
-            aspect: [4, 3],
+            //aspect: [4, 3],
+            quality: 0
         }).then((result) => {
             console.log("image selected " + JSON.stringify(result));
             self.setState({ image: "data:image/jpg;base64," + result.base64 });
@@ -72,7 +73,7 @@ export default class FillItemInfor extends React.Component {
                 Actions.gencode({ code: res.Data.code });
             });
     }
-    search(){
+    search() {
         Actions.searchimageitem();
     }
     render() {
@@ -100,10 +101,10 @@ export default class FillItemInfor extends React.Component {
                             </TouchableOpacity>
                         </Col>
                         <Col size={1}>
-                            <Icon name='search'
+                            {/* <Icon name='search'
                                 type='font-awesome'
                                 color='#eda751'
-                                onPress={() => this.search.bind(this)} />
+                                onPress={() => this.search.bind(this)} /> */}
                         </Col>
 
                     </Row>
@@ -148,7 +149,7 @@ export default class FillItemInfor extends React.Component {
                         <FormInput
                             numberOfLines={4}
                             multiline={true}
-                            containerStyle={{ height: "100%", width:'90%', borderColor: 'gray', borderWidth: 1 }}
+                            containerStyle={{ height: "100%", width: '90%', borderColor: 'gray', borderWidth: 1 }}
                             onChangeText={(text) => this.setState({ price: text })}
                             value={this.state.description}
                             onChangeText={(text) => this.setState({ description: text })}
@@ -165,7 +166,7 @@ export default class FillItemInfor extends React.Component {
                     }}>
                         <Col sixe={2}></Col>
                         <Col sixe={6}>
-                            <Button large style={{ width: "100%" }} buttonStyle={styles.buttonLogin} title="Done" onPress={this.submit.bind(this)} backgroundColor="#eda751" />
+                            <Button style={{ width: "100%" }} buttonStyle={styles.buttonLogin} title="Done" onPress={this.submit.bind(this)} backgroundColor="#eda751" />
 
                         </Col>
                         <Col sixe={2}></Col>
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
     buttonLogin: {
         borderColor: "transparent",
         borderRadius: 10,
-        
+
 
     },
 });

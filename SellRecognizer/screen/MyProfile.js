@@ -60,9 +60,10 @@ export default class MyProfile extends React.Component {
         console.log("pick image ");
         var self = this;
         ImagePicker.launchImageLibraryAsync({
-            allowsEditing: true,
+            //allowsEditing: true,
             base64: true,
-            aspect: [4, 3],
+            //aspect: [4, 3],
+            quality: 0
         }).then((result) => {
             console.log("image selected " + JSON.stringify(result));
             self.setState({ image: "data:image/jpg;base64," + result.base64 });
@@ -178,11 +179,11 @@ export default class MyProfile extends React.Component {
 
 
                                 <Col style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                    <Button large buttonStyle={styles.buttonLogin} title="Update" onPress={this.updateProfile.bind(this)} backgroundColor="#eda751" />
+                                    <Button  buttonStyle={styles.buttonLogin} title="Update" onPress={this.updateProfile.bind(this)} backgroundColor="#eda751" />
 
                                 </Col>
                                 <Col style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                    <Button large buttonStyle={styles.buttonLogin} title="Logout" onPress={this.logout.bind(this)} backgroundColor="red" />
+                                    <Button  buttonStyle={styles.buttonLogin} title="Logout" onPress={this.logout.bind(this)} backgroundColor="red" />
 
                                 </Col>
 
