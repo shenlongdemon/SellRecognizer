@@ -7,7 +7,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import { Dropdown } from 'react-native-material-dropdown';
 import CommonService from '../service/CommonService'
 import CommonPage from "./CommonPage"
-import { ImagePicker } from 'expo';
+import { ImagePicker,ImageManipulator } from 'expo';
 import DetectService from '../components/DetectService'
 import StoreLocalService from "../service/StoreLocalService";
 
@@ -24,8 +24,9 @@ export default class FillItemInfor extends React.Component {
     }
     componentWillMount() {
         var self = this;
-
+        console.log("FillItemInfor getUserInfo ");
         CommonService.getUserInfo().then((user) => {
+            console.log("FillItemInfor getUserInfo " + user);
             self.setState({ user: user });
         });
     }
@@ -47,10 +48,15 @@ export default class FillItemInfor extends React.Component {
             //aspect: [4, 3],
             quality: 0
         }).then((result) => {
-            console.log("image selected " + JSON.stringify(result));
-            self.setState({ image: "data:image/jpg;base64," + result.base64 });
-            console.log("pick image " + JSON.stringify(self.state));
-
+            var ratio = 100 / result.width;
+            var height = result.height * ratio;
+            var width = result.width * ratio;
+            ImageManipulator.manipulate(result.uri, [{ resize: { height: height, width:width}}],
+                { format: 'jpg',base64:true,compress:0 }).then((res) => {
+                    console.log("image selected " + JSON.stringify(res));
+                    self.setState({ image: "data:image/jpg;base64," + res.base64 });
+                    console.log("pick image " + JSON.stringify(self.state));
+                });
         });
     }
     getItem() {

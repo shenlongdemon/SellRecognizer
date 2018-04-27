@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Ubuta</string>
+	<string>uGuta</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -70,7 +70,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow Ubuta to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Ubuta to access your device's accelerometer</string>
+	<string>Allow Ubuta to access your device&apos;s accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give Ubuta permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>

@@ -20,7 +20,7 @@ import LookAround from './screen/LookAround';
 import ProductDetail from './screen/ProductDetail';
 import History from './screen/History';
 import ListProducts from './screen/ListProducts';
-
+import CircleCode from './screen/CircleCode';
 
 const TabIcon = ({ title, focused }) => {
     let image;
@@ -121,7 +121,7 @@ export default class App extends React.Component {
                                 <Scene key="listitems"
                                     component={ListItems}
                                     title="My Documents"
-                                    icon={TabIcon} 
+                                    icon={TabIcon}
                                     tabBarLabel="My Documents"
                                 >
                                 </Scene>
@@ -129,14 +129,14 @@ export default class App extends React.Component {
                             <Scene key="myprofile"
                                 title="myprofile"
                                 icon={TabIcon}
-                                titleStyle={{color:'white'}}
+                                titleStyle={{ color: 'white' }}
                             >
                                 <Scene key="myprofile"
                                     component={MyProfile}
                                     title="My Profile"
                                     icon={TabIcon}
                                     tabBarLabel="My Profile"
-                                    titleStyle={{color:'white'}}
+                                    titleStyle={{ color: 'white' }}
                                 />
                             </Scene>
                         </Scene>
@@ -188,7 +188,10 @@ export default class App extends React.Component {
                             component={ListProducts}
                             title=""
                         />
-
+                        <Scene key="circlecode"
+                            component={CircleCode}
+                            title=""
+                        />
                     </Scene>
                 </Router>
             );

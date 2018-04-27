@@ -35,9 +35,11 @@ export default class DetectService extends React.Component {
                                 weather: weather
                             });
                         }).catch((e) => {
+                            alert('getWeather ' + JSON.stringify(e));
                             reject(e)
                         });
                 }).catch((e) => {
+                    alert('getCurrentPosition ' + JSON.stringify(e));
                     reject(e)
                 });
             });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, ImageBackground, Alert } from 'react-native';
+import { StyleSheet, View, Image, ImageBackground, Alert, TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput, Button, Text } from 'react-native-elements'
 import QRCode from 'react-native-qrcode';
 import OMCode from '../components/OMCode';
@@ -21,7 +21,7 @@ export default class ProductDetail extends React.Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        Actions.refresh({ title: nextProps.item.name})
+        Actions.refresh({ title: nextProps.item.name })
     }
     componentWillMount() {
         var self = this;
@@ -77,8 +77,15 @@ export default class ProductDetail extends React.Component {
     history() {
         Actions.history({ item: this.props.item });
     }
+    getCode() {
+        return this.props.item.buyerCode.length > 0 ? this.props.item.buyerCode
+            : (
+                this.props.item.sellCode.length > 0 ? this.props.item.sellCode
+                    : this.props.item.code
+            );
+    }
     render() {
-
+        let code = this.getCode();
         return (
             <CommonPage style={styles.container}>
                 <Grid>
@@ -90,11 +97,14 @@ export default class ProductDetail extends React.Component {
                     </Row>
 
                     <Row size={3} style={{ alignItems: 'center', justifyContent: 'center' }} >
-                        <QRCode
-                            size={240}
-                            value={CommonService.compress(this.props.item.sellCode)}
-                            bgColor='black'
-                            fgColor='white' />
+                        <TouchableOpacity activeOpacity={.5} onPress={() => CommonService.getDescriptionQRCode(code)}>
+
+                            <QRCode
+                                size={240}
+                                value={CommonService.compress(code)}
+                                bgColor='black'
+                                fgColor='white' />
+                        </TouchableOpacity>
                     </Row>
 
 

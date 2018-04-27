@@ -53,7 +53,6 @@ export default class ListItems extends React.Component {
                     console.log("CommonService.getItems res " + JSON.stringify(res));
                     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                     self.setState({ dataSource: ds.cloneWithRows(res.Data) });
-                    console.log("CommonService.getItems state " + JSON.stringify(this.state));
                     self.setState({ pageNum: self.state.pageNum + 1 });
 
                 }

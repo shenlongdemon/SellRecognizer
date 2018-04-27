@@ -25,8 +25,12 @@ export default class Login extends React.Component {
 
                 if (res.Status == 1) {
                     StoreLocalService.setPhone(phone);
-                    StoreLocalService.setUser(res.Data);
-                    Actions.mainboard();
+                    StoreLocalService.setUser(res.Data).then(()=>{
+                        Actions.mainboard();
+                    }).catch((e) => {
+                        alert('Cannot store user.');
+                    });
+                    
                 }
                 else {
                     alert(res.Message);

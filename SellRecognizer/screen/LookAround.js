@@ -122,7 +122,7 @@ export default class LookAround extends React.Component {
                             alignItems: 'center',
                             justifyContent: 'center', height: 70
                         }}>
-                            <ActivityIndicator size="large" color="#0000ff" />
+                            <ActivityIndicator size="large" color="#e65e5e" />
                         </Row>
                     }
                     {
@@ -151,7 +151,7 @@ export default class LookAround extends React.Component {
                                             <Col size={1}>
                                             </Col>
                                             <Col size={9} style={{ justifyContent: 'center', }}>
-                                                <Text>{item.name}</Text>
+                                                <Text h4>{item.name}</Text>
                                             </Col>
 
                                         </Row>

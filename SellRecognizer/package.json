@@ -32,7 +32,7 @@
     "react-native-svg": "^6.3.1",
     "react-native-web-api": "1.1.1",
     "underscore": "1.8.3",
-    "react-native-keyboard-aware-view":"^0.0.14",
-    "lzjs":"^1.3.0"
+    "react-native-keyboard-aware-view": "^0.0.14",
+    "lzjs": "^1.3.0"
   }
 }

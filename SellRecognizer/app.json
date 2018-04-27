@@ -4,7 +4,7 @@
     "splash": {
       "image": "./assets/splash.png"
     },
-    "name": "Ubuta",
+    "name": "ubuta",
     "icon": "./assets/appicon.png",
     "version": "1.0.0",
     "slug": "com-sl-Ubuta",

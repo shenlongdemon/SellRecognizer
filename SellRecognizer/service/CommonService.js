@@ -101,9 +101,9 @@ export default class CommonService extends React.Component {
         var url = config.service.url + "/api/sellrecognizer/getProductsByBluetoothCodes";
         return WebApi.request("POST", url, names, null);
     }
-    
-    
-    
+
+
+
     static confirmReceiveItem(id) {
         console.log("CommonService confirmReceiveItem " + id);
         var url = config.service.url + "/api/sellrecognizer/confirmReceiveItem?id=" + id;
@@ -114,9 +114,24 @@ export default class CommonService extends React.Component {
         console.log("compress " + str.length + " --> " + c);
         return c;
     }
-    static cancelSell(itemId){
-        console.log("CommonService cancelSell " +itemId);
+    static decompress(str) {
+        var c = lzjs.decompress(str);
+        console.log("decompress " + str.length + " --> " + c);
+        return c;
+    }
+    static cancelSell(itemId) {
+        console.log("CommonService cancelSell " + itemId);
         var url = config.service.url + "/api/sellrecognizer/cancelSell?id=" + itemId;
         return WebApi.request("GET", url, null, null);
+    }
+    static getDescriptionQRCode(qrCode) {
+        
+        console.log("CommonService getDescriptionQRCode " + qrCode);
+        
+        var data = {code : qrCode};
+        var url = config.service.url + "/api/sellrecognizer/getDescriptionQRCode";
+        WebApi.request("POST", url, data, null).then((res) => {
+            alert(res.Data);
+        });
     }
 }

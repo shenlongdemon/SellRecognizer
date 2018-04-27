@@ -9,7 +9,7 @@ import CommonPage from "./CommonPage"
 import { Col, Row, Grid } from "react-native-easy-grid";
 import StoreLocalService from "../service/StoreLocalService";
 import CommonService from "../service/CommonService";
-import { ImagePicker } from 'expo';
+import { ImagePicker,ImageManipulator } from 'expo';
 export default class MyProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -53,10 +53,10 @@ export default class MyProfile extends React.Component {
     logout() {
 
         StoreLocalService.clearAll();
-
+        Actions.reset('login');
     }
     selectImage = () => {
-
+        
         console.log("pick image ");
         var self = this;
         ImagePicker.launchImageLibraryAsync({
@@ -65,10 +65,15 @@ export default class MyProfile extends React.Component {
             //aspect: [4, 3],
             quality: 0
         }).then((result) => {
-            console.log("image selected " + JSON.stringify(result));
-            self.setState({ image: "data:image/jpg;base64," + result.base64 });
-            console.log("pick image " + JSON.stringify(self.state));
-
+            var ratio = 100 / result.width;
+            var height = result.height * ratio;
+            var width = result.width * ratio;
+            ImageManipulator.manipulate(result.uri, [{ resize: { height: height, width:width}}],
+                { format: 'jpg',base64:true,compress:0 }).then((res) => {
+                    console.log("image selected " + JSON.stringify(res));
+                    self.setState({ image: "data:image/jpg;base64," + res.base64 });
+                    console.log("pick image " + JSON.stringify(self.state));
+                });
         });
     }
     render() {

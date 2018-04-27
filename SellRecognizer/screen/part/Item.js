@@ -18,7 +18,7 @@ export default class Item extends React.Component {
                             <Image
                                 style={{ width: '90%', height: '80%' }}
                                 source={{ uri: this.props.item.image }}
-                                resizeMode="stretch"
+                                resizeMode="contain"
                             />
                         </Col>
                         <Col style={{ width: 10 }} >
@@ -51,7 +51,7 @@ export default class Item extends React.Component {
                                     <Col>
                                         {
                                             (this.props.item.buyerCode != undefined && this.props.item.buyerCode != "")
-                                                ? <Text style={{ color: 'orange' }} >Buyed</Text>
+                                                ? <Text style={{ color: 'orange' }} >Sold</Text>
                                                 : (this.props.item.sellCode != undefined && this.props.item.sellCode != "")
                                                     ? <Text style={{ color: 'green' }} >Published</Text>
                                                     : <Text></Text>
