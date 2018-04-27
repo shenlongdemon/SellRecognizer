@@ -14,11 +14,13 @@ export default class ItemInfo extends React.Component {
         return (
             <Grid>
                 <Row size={2}>
-                    <Image
-                        style={{ flex: 1 }}
-                        source={{ uri: this.props.item.image }}
-                        resizeMode="contain"
-                    />
+                    <TouchableOpacity style={{ width: '100%', height: '100%', justifyContent: 'center' }} activeOpacity={.5} onPress={() => alert('Bluetooth code: ' + this.props.item.bluetoothCode)}>
+                        <Image
+                            style={{ width: '100%', height: '100%' }}
+                            source={{ uri: this.props.item.image }}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
                 </Row>
                 <Row size={4}>
                     <Grid style={styles.container}>
@@ -32,18 +34,18 @@ export default class ItemInfo extends React.Component {
                         <Row>
                             <Text style={{ color: 'green' }}>{this.props.item.price + "$"}</Text>
                         </Row>
-                       
+
                         <Row >
                             <Text>{"Owner: " + this.props.item.owner.firstName + " " + this.props.item.owner.lastName}</Text>
                         </Row>
-                        <Row style={{height:5}}>
+                        <Row style={{ height: 5 }}>
                         </Row>
                         <Row >
                             <Text style={{ textAlign: 'center', width: "100%" }} >
                                 {"Purchased at: " + dt + "\n" + "Address: " + this.props.item.owner.weather.name}
                             </Text>
                         </Row>
-                        <Row style={{height:5}}>
+                        <Row style={{ height: 5 }}>
                         </Row>
 
                     </Grid>
